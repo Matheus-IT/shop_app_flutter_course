@@ -10,7 +10,7 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('title'),
+        title: const Text('title'),
       ),
       body: const Center(
         child: Text('Product Detail Screen'),
