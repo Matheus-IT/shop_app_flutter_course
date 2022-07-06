@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app_flutter_course/app_routes.dart';
+import 'package:shop_app_flutter_course/screens/product_detail_screen.dart';
 import 'package:shop_app_flutter_course/screens/products_overview_screen.dart';
 
 void main() {
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shop App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.purple,
@@ -20,6 +22,10 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Lato',
       ),
       home: const ProductsOverviewScreen(),
+      routes: {
+        AppRoutes.productsOverview: (context) => ProductsOverviewScreen(),
+        AppRoutes.productDetail: (context) => ProductDetailScreen(),
+      },
     );
   }
 }
