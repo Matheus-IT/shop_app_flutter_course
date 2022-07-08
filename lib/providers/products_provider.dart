@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter_course/models/product.dart';
+import 'package:shop_app_flutter_course/providers/product_provider.dart';
 
 import '../dummy_data.dart';
 
 class ProductsProvider with ChangeNotifier {
-  final List<Product> _items = dummyData;
+  final List<ProductProvider> _items = dummyData;
 
-  List<Product> get items => [..._items];
+  List<ProductProvider> get items => [..._items];
 
   void addProduct() {
     // _items.add();
@@ -14,7 +14,7 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Product findById(String id) {
+  ProductProvider findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
 }
