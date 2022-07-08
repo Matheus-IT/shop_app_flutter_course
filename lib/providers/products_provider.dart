@@ -13,4 +13,8 @@ class ProductsProvider with ChangeNotifier {
     print('Tried to add item');
     notifyListeners();
   }
+
+  Product findById(String id) {
+    return _items.firstWhere((element) => element.id == id);
+  }
 }
