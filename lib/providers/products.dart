@@ -3,7 +3,7 @@ import 'package:shop_app_flutter_course/providers/product.dart';
 
 import '../dummy_data.dart';
 
-class ProductsProvider with ChangeNotifier {
+class Products with ChangeNotifier {
   final List<Product> _items = dummyData;
 
   List<Product> get items => [..._items];

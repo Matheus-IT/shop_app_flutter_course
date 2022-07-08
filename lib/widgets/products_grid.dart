@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/providers/products_provider.dart';
+import 'package:shop_app_flutter_course/providers/products.dart';
 
 import 'product_item.dart';
 
@@ -11,7 +11,7 @@ class ProductsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsProvider = Provider.of<ProductsProvider>(context);
+    final productsProvider = Provider.of<Products>(context);
     final products = productsProvider.items;
 
     return GridView.builder(
