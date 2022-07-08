@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/app_routes.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
-import 'package:shop_app_flutter_course/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   // final String id;
@@ -28,12 +25,14 @@ class ProductItem extends StatelessWidget {
         footer: GridTileBar(
           backgroundColor: Colors.black87,
           leading: IconButton(
-            icon: Icon(Icons.favorite),
+            icon: (product.isFavorite)
+                ? const Icon(Icons.favorite)
+                : const Icon(Icons.favorite_border),
             color: Theme.of(context).accentColor,
-            onPressed: () {},
+            onPressed: () => product.toggleFavoriteStatus(),
           ),
           trailing: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
             onPressed: () {},
           ),
