@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/app_routes.dart';
-import 'package:shop_app_flutter_course/providers/product_provider.dart';
+import 'package:shop_app_flutter_course/providers/product.dart';
 import 'package:shop_app_flutter_course/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
@@ -20,7 +20,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<ProductProvider>(context);
+    final product = Provider.of<Product>(context);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
