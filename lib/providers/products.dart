@@ -15,9 +15,7 @@ class Products with ChangeNotifier {
   }
 
   void addProduct() {
-    // _items.add();
-    print('Tried to add item');
-    notifyListeners();
+    debugPrint('Tried to add item');
   }
 
   Product findById(String id) {
