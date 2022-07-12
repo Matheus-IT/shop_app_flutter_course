@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/screens/cart.dart';
+import 'package:shop_app_flutter_course/providers/cart.dart';
 
 import 'app_routes.dart';
 import 'providers/products.dart';
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Shop App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
