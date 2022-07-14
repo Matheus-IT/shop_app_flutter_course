@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/providers/cart.dart';
 
 import 'app_routes.dart';
+import 'providers/cart.dart';
 import 'providers/products.dart';
+import 'screens/cart_screen.dart';
 import 'screens/product_detail_screen.dart';
 import 'screens/products_overview_screen.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.purple,
           ),
           accentColor: Colors.deepOrange,
+          primaryColor: Colors.purple,
           fontFamily: 'Lato',
         ),
         home: const ProductsOverviewScreen(),
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.productsOverview: (context) =>
               const ProductsOverviewScreen(),
           AppRoutes.productDetail: (context) => const ProductDetailScreen(),
+          AppRoutes.cart: (context) => const CartScreen(),
         },
       ),
     );
