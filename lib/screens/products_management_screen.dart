@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/app_routes.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 import 'package:shop_app_flutter_course/providers/products.dart';
 import 'package:shop_app_flutter_course/widgets/app_drawer.dart';
@@ -18,7 +19,9 @@ class ProductsManagementScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.editProduct);
+            },
           )
         ],
       ),
