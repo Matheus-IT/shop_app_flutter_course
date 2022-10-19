@@ -9,11 +9,16 @@ class EditProductScreen extends StatefulWidget {
 
 class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     super.dispose();
     _imageUrlController.dispose();
+  }
+
+  void _handleSubmitForm() {
+    _formKey.currentState?.save();
   }
 
   @override
@@ -24,6 +29,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
+          key: _formKey,
           child: ListView(
             children: [
               TextFormField(
@@ -71,10 +77,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       textInputAction: TextInputAction.done,
                       controller: _imageUrlController,
                       onEditingComplete: () => setState(() {}),
+                      onFieldSubmitted: (_) => _handleSubmitForm(),
                     ),
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  iconSize: 40,
+                  icon: const Icon(Icons.save),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () => _handleSubmitForm(),
+                ),
+              ),
             ],
           ),
         ),
