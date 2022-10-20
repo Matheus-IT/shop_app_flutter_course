@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/providers/product.dart';
+import 'package:shop_app_flutter_course/providers/products.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({super.key});
@@ -8,6 +11,9 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
+  final _titleController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _descriptionController = TextEditingController();
   final _imageUrlController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -78,7 +84,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (!isValid) {
       return;
     }
-    _formKey.currentState?.save();
+    final productProvider = Provider.of<Products>(context, listen: false);
+
+    final newProduct = Product(
+      id: DateTime.now().toString(),
+      title: _titleController.text,
+      description: _descriptionController.text,
+      price: double.parse(_priceController.text),
+      imageUrl: _imageUrlController.text,
+    );
+
+    productProvider.addProduct(newProduct);
+    debugPrint('Product added!');
+    Navigator.of(context).pop();
   }
 
   @override
@@ -95,18 +113,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Title'),
                 textInputAction: TextInputAction.next,
+                controller: _titleController,
                 validator: titleValidator,
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Price'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                controller: _priceController,
                 validator: priceValidator,
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Description'),
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
+                controller: _descriptionController,
                 validator: descriptionValidator,
               ),
               Row(

@@ -14,8 +14,9 @@ class Products with ChangeNotifier {
     return _items.where((product) => product.isFavorite).toList();
   }
 
-  void addProduct() {
-    debugPrint('Tried to add item');
+  void addProduct(Product newProduct) {
+    _items.add(newProduct);
+    notifyListeners();
   }
 
   Product findById(String id) {
