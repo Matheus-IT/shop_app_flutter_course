@@ -17,7 +17,67 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageUrlController.dispose();
   }
 
+  String? baseValidator(String? input) {
+    if (input == null || input.isEmpty) {
+      return 'Please enter a value';
+    }
+    return null;
+  }
+
+  String? titleValidator(String? input) {
+    final result = baseValidator(input);
+
+    if (result != null) {
+      return result;
+    }
+    return null;
+  }
+
+  String? priceValidator(String? input) {
+    final result = baseValidator(input);
+
+    if (result != null) {
+      return result;
+    }
+
+    final number = double.tryParse(input!);
+
+    if (number == null) {
+      return 'Please enter a valid number';
+    }
+    if (number <= 0) {
+      return 'Please enter a number greater than or equal to zero';
+    }
+    return null;
+  }
+
+  String? descriptionValidator(String? input) {
+    final result = baseValidator(input);
+
+    if (result != null) {
+      return result;
+    }
+    return null;
+  }
+
+  String? imageUrlValidator(String? input) {
+    final result = baseValidator(input);
+
+    if (result != null) {
+      return result;
+    }
+
+    if (!input!.startsWith('http') && !input.startsWith('https')) {
+      return 'Please enter a valid image URL';
+    }
+    return null;
+  }
+
   void _handleSubmitForm() {
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) {
+      return;
+    }
     _formKey.currentState?.save();
   }
 
@@ -35,16 +95,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Title'),
                 textInputAction: TextInputAction.next,
+                validator: titleValidator,
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Price'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                validator: priceValidator,
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Description'),
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
+                validator: descriptionValidator,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -76,8 +139,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       keyboardType: TextInputType.url,
                       textInputAction: TextInputAction.done,
                       controller: _imageUrlController,
-                      onEditingComplete: () => setState(() {}),
+                      onEditingComplete: () {
+                        if (imageUrlValidator(_imageUrlController.text) !=
+                            null) {
+                          return;
+                        }
+                        setState(() {});
+                      },
                       onFieldSubmitted: (_) => _handleSubmitForm(),
+                      validator: imageUrlValidator,
                     ),
                   ),
                 ],
