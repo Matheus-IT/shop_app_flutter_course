@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shop_app_flutter_course/app_routes.dart';
 
 class ProductManagementItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageURL;
 
   const ProductManagementItem({
+    required this.id,
     required this.title,
     required this.imageURL,
     super.key,
@@ -22,7 +25,12 @@ class ProductManagementItem extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.editProduct,
+                    arguments: id,
+                  );
+                },
                 icon: const Icon(Icons.edit),
               ),
               IconButton(

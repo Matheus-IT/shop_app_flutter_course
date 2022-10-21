@@ -22,4 +22,25 @@ class Products with ChangeNotifier {
   Product findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
+
+  Product updateProductIfExists(
+    String productId,
+    Map<String, String> newProductData,
+  ) {
+    final existingProduct = findById(productId);
+    final newProduct = Product(
+      id: existingProduct.id,
+      title: newProductData['title']!,
+      price: double.parse(newProductData['price']!),
+      description: newProductData['description']!,
+      imageUrl: newProductData['imageUrl']!,
+      isFavorite: existingProduct.isFavorite,
+    );
+    final index = _items.indexWhere(
+      (element) => element.id == existingProduct.id,
+    );
+    _items[index] = newProduct;
+    notifyListeners();
+    return newProduct;
+  }
 }

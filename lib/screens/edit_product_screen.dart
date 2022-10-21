@@ -11,6 +11,8 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
+  bool _isInit = true;
+  String? productId;
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -18,8 +20,34 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) {
+      _init();
+    }
+    _isInit = false;
+  }
+
+  void _init() {
+    productId = ModalRoute.of(context)?.settings.arguments as String?;
+    if (productId == null) {
+      return;
+    }
+    final productsProvider = Provider.of<Products>(context, listen: false);
+    final loadedProduct = productsProvider.findById(productId!);
+
+    _titleController.text = loadedProduct.title;
+    _priceController.text = loadedProduct.price.toString();
+    _descriptionController.text = loadedProduct.description;
+    _imageUrlController.text = loadedProduct.imageUrl;
+  }
+
+  @override
   void dispose() {
     super.dispose();
+    _titleController.dispose();
+    _priceController.dispose();
+    _descriptionController.dispose();
     _imageUrlController.dispose();
   }
 
@@ -84,18 +112,31 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (!isValid) {
       return;
     }
-    final productProvider = Provider.of<Products>(context, listen: false);
+    final productsProvider = Provider.of<Products>(context, listen: false);
 
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      title: _titleController.text,
-      description: _descriptionController.text,
-      price: double.parse(_priceController.text),
-      imageUrl: _imageUrlController.text,
-    );
+    if (productId == null) {
+      // Handle creation
+      final newProduct = Product(
+        id: DateTime.now().toString(),
+        title: _titleController.text,
+        description: _descriptionController.text,
+        price: double.parse(_priceController.text),
+        imageUrl: _imageUrlController.text,
+      );
 
-    productProvider.addProduct(newProduct);
-    debugPrint('Product added!');
+      productsProvider.addProduct(newProduct);
+      debugPrint('Product added!');
+    } else {
+      // Handle update
+      productsProvider.updateProductIfExists(productId!, {
+        'title': _titleController.text,
+        'price': _priceController.text,
+        'description': _descriptionController.text,
+        'imageUrl': _imageUrlController.text,
+      });
+      debugPrint('Product updated!');
+    }
+
     Navigator.of(context).pop();
   }
 
