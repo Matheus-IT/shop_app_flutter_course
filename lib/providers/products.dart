@@ -43,4 +43,9 @@ class Products with ChangeNotifier {
     notifyListeners();
     return newProduct;
   }
+
+  void deleteProductIfExists(String id) {
+    _items.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/app_routes.dart';
+import 'package:shop_app_flutter_course/providers/products.dart';
 
 class ProductManagementItem extends StatelessWidget {
   final String id;
@@ -34,7 +36,10 @@ class ProductManagementItem extends StatelessWidget {
                 icon: const Icon(Icons.edit),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<Products>(context, listen: false)
+                      .deleteProductIfExists(id);
+                },
                 icon: const Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
               )
