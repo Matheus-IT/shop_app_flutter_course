@@ -13,6 +13,7 @@ import 'screens/product_detail_screen.dart';
 import 'screens/products_overview_screen.dart';
 
 void main() {
+  // trying to contribute
   runApp(const MyApp());
 }
 
@@ -46,13 +47,11 @@ class MyApp extends StatelessWidget {
         ),
         home: const ProductsOverviewScreen(),
         routes: {
-          AppRoutes.productsOverview: (context) =>
-              const ProductsOverviewScreen(),
+          AppRoutes.productsOverview: (context) => const ProductsOverviewScreen(),
           AppRoutes.productDetail: (context) => const ProductDetailScreen(),
           AppRoutes.cart: (context) => const CartScreen(),
           AppRoutes.orders: (context) => const OrdersScreen(),
-          AppRoutes.managementScreen: (context) =>
-              const ProductsManagementScreen(),
+          AppRoutes.managementScreen: (context) => const ProductsManagementScreen(),
           AppRoutes.editProduct: (context) => const EditProductScreen(),
         },
       ),
