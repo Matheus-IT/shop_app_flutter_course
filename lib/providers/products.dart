@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
+import 'package:http/http.dart' as http;
 
 import '../dummy_data.dart';
 
@@ -15,6 +17,17 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product newProduct) {
+    final url = Uri.parse('myurl');
+    http.post(
+      url,
+      body: json.encode({
+        'title': newProduct.title,
+        'description': newProduct.description,
+        'imageUrl': newProduct.imageUrl,
+        'price': newProduct.price,
+        'isFavorite': newProduct.isFavorite,
+      }),
+    );
     _items.add(newProduct);
     notifyListeners();
   }
