@@ -13,7 +13,6 @@ import 'screens/product_detail_screen.dart';
 import 'screens/products_overview_screen.dart';
 
 void main() {
-  // trying to contribute
   runApp(const MyApp());
 }
 
