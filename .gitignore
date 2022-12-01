@@ -52,3 +52,5 @@ linux/
 macos/
 web/
 windows/
+
+*.env
