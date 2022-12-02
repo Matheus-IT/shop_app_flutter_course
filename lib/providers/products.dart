@@ -19,7 +19,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product newProduct) {
     final firebaseUrl = dotenv.env['FIREBASE_URL'];
-    final url = Uri.parse('$firebaseUrl/products.json');
+    final url = Uri.parse('$firebaseUrl/products');
 
     return http
         .post(url,
@@ -43,7 +43,7 @@ class Products with ChangeNotifier {
 
       _items.add(newProduct);
       notifyListeners();
-    });
+    }).catchError((error) => debugPrint(error));
   }
 
   Product findById(String id) {

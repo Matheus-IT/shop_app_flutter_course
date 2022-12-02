@@ -131,6 +131,22 @@ class _EditProductScreenState extends State<EditProductScreen> {
         debugPrint('Product added!');
         setState(() => isLoading = false);
         Navigator.of(context).pop();
+      }).catchError((error) {
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Something went wrong'),
+            content: const Text('An error occurred when trying to add a product'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    setState(() => isLoading = false);
+                  },
+                  child: const Text('OK'))
+            ],
+          ),
+        );
       });
     } else {
       // Handle update
