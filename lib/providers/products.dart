@@ -19,7 +19,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product newProduct) {
     final firebaseUrl = dotenv.env['FIREBASE_URL'];
-    final url = Uri.parse('$firebaseUrl/products');
+    final url = Uri.parse('$firebaseUrl/products.json');
 
     return http
         .post(url,
