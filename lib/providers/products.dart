@@ -30,7 +30,17 @@ class Products with ChangeNotifier {
               'price': newProduct.price,
               'isFavorite': newProduct.isFavorite,
             }))
-        .then((value) {
+        .then((response) {
+      // getting the id, in this case 'name', generated from firebase
+      newProduct = Product(
+        id: json.decode(response.body)['name'],
+        title: newProduct.title,
+        description: newProduct.description,
+        imageUrl: newProduct.imageUrl,
+        price: newProduct.price,
+        isFavorite: newProduct.isFavorite,
+      );
+
       _items.add(newProduct);
       notifyListeners();
     });
