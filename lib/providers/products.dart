@@ -17,11 +17,11 @@ class Products with ChangeNotifier {
     return _items.where((product) => product.isFavorite).toList();
   }
 
-  void addProduct(Product newProduct) {
+  Future<void> addProduct(Product newProduct) {
     final firebaseUrl = dotenv.env['FIREBASE_URL'];
     final url = Uri.parse('$firebaseUrl/products.json');
 
-    http
+    return http
         .post(url,
             body: json.encode({
               'title': newProduct.title,
