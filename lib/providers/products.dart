@@ -1,14 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
+import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 
-import '../dummy_data.dart';
-
 class Products with ChangeNotifier {
-  final List<Product> _items = dummyData;
+  final List<Product> _items = [];
 
   List<Product> get items {
     return [..._items];
+  }
+
+  Future<List<Product>> fetchAllProductsAndUpdateList() async {
+    try {
+      final List<Product> loadedProducts = [];
+
+      final response = await requestAllProductsFromFirebase();
+      response.forEach((key, prodData) {
+        loadedProducts.add(Product(
+          id: key,
+          title: prodData['title'],
+          description: prodData['description'],
+          price: prodData['price'],
+          isFavorite: prodData['isFavorite'],
+          imageUrl: prodData['imageUrl'],
+        ));
+      });
+
+      _updateItemsList(loadedProducts);
+      notifyListeners();
+
+      return loadedProducts;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  void _updateItemsList(List<Product> prods) {
+    _items.clear();
+    _items.addAll(prods);
   }
 
   List<Product> get favoriteItems {

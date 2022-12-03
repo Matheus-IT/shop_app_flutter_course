@@ -7,6 +7,7 @@ import 'dart:convert';
 Future<void> requestAddProductFirebase(Product newProduct) async {
   final firebaseUrl = dotenv.env['FIREBASE_URL'];
   final url = Uri.parse('$firebaseUrl/products.json');
+
   final response = await http.post(
     url,
     body: json.encode({
