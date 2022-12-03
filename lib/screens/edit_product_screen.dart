@@ -108,12 +108,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return null;
   }
 
-  void _handleSubmitForm() {
+  void _handleSubmitForm() async {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) {
       return;
     }
     final productsProvider = Provider.of<Products>(context, listen: false);
+
+    setState(() => isLoading = true);
 
     if (productId == null) {
       // Handle creation
@@ -125,31 +127,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
         imageUrl: _imageUrlController.text,
       );
 
-      setState(() => isLoading = true);
-
-      productsProvider.addProduct(newProduct).then((_) {
+      try {
+        await productsProvider.addProduct(newProduct);
         debugPrint('Product added!');
-        setState(() => isLoading = false);
-        Navigator.of(context).pop();
-      }).catchError((error) {
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text('Something went wrong'),
-            content: const Text('An error occurred when trying to add a product'),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                    setState(() => isLoading = false);
-                  },
-                  child: const Text('OK'))
-            ],
-          ),
-        );
-      });
+      } catch (error) {
+        _showWarningDialogErrorAddingProduct();
+      }
     } else {
-      // Handle update
       productsProvider.updateProductIfExists(productId!, {
         'title': _titleController.text,
         'price': _priceController.text,
@@ -157,8 +141,28 @@ class _EditProductScreenState extends State<EditProductScreen> {
         'imageUrl': _imageUrlController.text,
       });
       debugPrint('Product updated!');
-      Navigator.of(context).pop();
     }
+
+    setState(() => isLoading = false);
+    Navigator.of(context).pop();
+  }
+
+  void _showWarningDialogErrorAddingProduct() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Something went wrong'),
+        content: const Text('An error occurred when trying to add a product'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                setState(() => isLoading = false);
+              },
+              child: const Text('OK'))
+        ],
+      ),
+    );
   }
 
   @override

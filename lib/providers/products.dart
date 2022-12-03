@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../dummy_data.dart';
 
@@ -17,33 +15,14 @@ class Products with ChangeNotifier {
     return _items.where((product) => product.isFavorite).toList();
   }
 
-  Future<void> addProduct(Product newProduct) {
-    final firebaseUrl = dotenv.env['FIREBASE_URL'];
-    final url = Uri.parse('$firebaseUrl/products.json');
-
-    return http
-        .post(url,
-            body: json.encode({
-              'title': newProduct.title,
-              'description': newProduct.description,
-              'imageUrl': newProduct.imageUrl,
-              'price': newProduct.price,
-              'isFavorite': newProduct.isFavorite,
-            }))
-        .then((response) {
-      // getting the id, in this case 'name', generated from firebase
-      newProduct = Product(
-        id: json.decode(response.body)['name'],
-        title: newProduct.title,
-        description: newProduct.description,
-        imageUrl: newProduct.imageUrl,
-        price: newProduct.price,
-        isFavorite: newProduct.isFavorite,
-      );
-
+  Future<void> addProduct(Product newProduct) async {
+    try {
+      await requestAddProductFirebase(newProduct);
       _items.add(newProduct);
       notifyListeners();
-    }).catchError((error) => debugPrint(error));
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   Product findById(String id) {
