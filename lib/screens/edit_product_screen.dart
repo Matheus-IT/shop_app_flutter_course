@@ -134,7 +134,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _showWarningDialogErrorAddingProduct();
       }
     } else {
-      productsProvider.updateProductIfExists(productId!, {
+      await productsProvider.updateProductIfExists(productId!, {
         'title': _titleController.text,
         'price': _priceController.text,
         'description': _descriptionController.text,

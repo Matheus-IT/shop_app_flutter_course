@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
+import 'package:shop_app_flutter_course/external/firebase_operations/request_update_product_firebase.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 
 class Products with ChangeNotifier {
@@ -59,11 +60,12 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  Product updateProductIfExists(
+  Future<Product> updateProductIfExists(
     String productId,
     Map<String, String> newProductData,
-  ) {
+  ) async {
     final existingProduct = findById(productId);
+
     final newProduct = Product(
       id: existingProduct.id,
       title: newProductData['title']!,
@@ -72,9 +74,13 @@ class Products with ChangeNotifier {
       imageUrl: newProductData['imageUrl']!,
       isFavorite: existingProduct.isFavorite,
     );
+
+    await requestUpdateProductFromFirebase(newProduct);
+
     final index = _items.indexWhere(
       (element) => element.id == existingProduct.id,
     );
+
     _items[index] = newProduct;
     notifyListeners();
     return newProduct;

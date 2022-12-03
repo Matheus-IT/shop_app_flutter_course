@@ -8,6 +8,10 @@ import 'package:shop_app_flutter_course/widgets/product_management_item.dart';
 class ProductsManagementScreen extends StatelessWidget {
   const ProductsManagementScreen({super.key});
 
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context).fetchAllProductsAndUpdateList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<Products>(context);
@@ -26,15 +30,18 @@ class ProductsManagementScreen extends StatelessWidget {
       ),
       drawer: const AppDrawer(),
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView.builder(
-          itemBuilder: (_, index) => ProductManagementItem(
-            id: productsProvider.items[index].id,
-            title: productsProvider.items[index].title,
-            imageURL: productsProvider.items[index].imageUrl,
+          child: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            itemBuilder: (_, index) => ProductManagementItem(
+              id: productsProvider.items[index].id,
+              title: productsProvider.items[index].title,
+              imageURL: productsProvider.items[index].imageUrl,
+            ),
+            itemCount: productsProvider.items.length,
           ),
-          itemCount: productsProvider.items.length,
         ),
       )),
     );
