@@ -9,12 +9,12 @@ class ProductsManagementScreen extends StatelessWidget {
   const ProductsManagementScreen({super.key});
 
   Future<void> _refreshProducts(BuildContext context) async {
-    await Provider.of<Products>(context).fetchAllProductsAndUpdateList();
+    await Provider.of<Products>(context, listen: false).fetchAllProductsAndUpdateList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsProvider = Provider.of<Products>(context);
+    final productsProvider = Provider.of<Products>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

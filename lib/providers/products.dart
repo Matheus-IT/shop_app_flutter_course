@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
+import 'package:shop_app_flutter_course/external/firebase_operations/request_delete_product_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_update_product_firebase.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 
@@ -86,8 +87,18 @@ class Products with ChangeNotifier {
     return newProduct;
   }
 
-  void deleteProductIfExists(String id) {
-    _items.removeWhere((element) => element.id == id);
-    notifyListeners();
+  void deleteProductIfExists(String id) async {
+    final productIndexBackup = _items.indexWhere((product) => product.id == id);
+    final productBackup = _items.firstWhere((product) => product.id == id);
+
+    try {
+      await requestDeleteProductFromFirebase(id);
+      _items.removeAt(productIndexBackup);
+    } catch (error) {
+      print(error);
+      _items.insert(productIndexBackup, productBackup);
+    } finally {
+      notifyListeners();
+    }
   }
 }
