@@ -88,17 +88,19 @@ class Products with ChangeNotifier {
   }
 
   void deleteProductIfExists(String id) async {
-    final productIndexBackup = _items.indexWhere((product) => product.id == id);
-    final productBackup = _items.firstWhere((product) => product.id == id);
+    final productIndex = _items.indexWhere((product) => product.id == id);
 
     try {
-      await requestDeleteProductFromFirebase(id);
-      _items.removeAt(productIndexBackup);
+      final response = await requestDeleteProductFromFirebase(id);
+
+      if (response.statusCode >= 400) {
+        throw Exception('Bad Request');
+      }
+
+      _items.removeAt(productIndex);
+      notifyListeners();
     } catch (error) {
       print(error);
-      _items.insert(productIndexBackup, productBackup);
-    } finally {
-      notifyListeners();
     }
   }
 }
