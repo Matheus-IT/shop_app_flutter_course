@@ -9,9 +9,11 @@ Future<Map<String, dynamic>> requestAllProductsFromFirebase() async {
     final url = Uri.parse('$firebaseUrl/products.json');
 
     final response = await http.get(url);
+
+    // response.body may be null, so I need to handle that
+
     return json.decode(response.body) as Map<String, dynamic>;
   } catch (error) {
-    print(error);
     rethrow;
   }
 }

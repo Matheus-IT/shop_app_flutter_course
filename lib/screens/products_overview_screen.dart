@@ -35,9 +35,12 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       setState(() => _isLoading = true);
 
       final productsProvider = Provider.of<Products>(context);
-      productsProvider.fetchAllProductsAndUpdateList().then((_) {
+
+      try {
+        productsProvider.fetchAllProductsAndUpdateList();
+      } finally {
         setState(() => _isLoading = false);
-      });
+      }
 
       _isTheFirstTime = false;
     }

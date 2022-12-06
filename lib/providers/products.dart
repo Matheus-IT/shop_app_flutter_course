@@ -34,7 +34,6 @@ class Products with ChangeNotifier {
 
       return loadedProducts;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
