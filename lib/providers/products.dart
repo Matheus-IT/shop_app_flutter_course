@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter_course/external/exceptions/http_exceptions.dart';
+import 'package:shop_app_flutter_course/external/exceptions/products_related_exceptions.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_delete_product_firebase.dart';
@@ -33,7 +34,7 @@ class Products with ChangeNotifier {
       notifyListeners();
 
       return loadedProducts;
-    } catch (e) {
+    } on NoProductsToFetch {
       rethrow;
     }
   }
