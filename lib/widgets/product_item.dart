@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/app_routes.dart';
 import 'package:shop_app_flutter_course/controllers/products_controller.dart';
+import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 import 'package:shop_app_flutter_course/providers/cart.dart';
 import 'package:shop_app_flutter_course/widgets/warningPresenters.dart/present_warning_fail_toggle_favorite.dart';
@@ -17,7 +18,7 @@ class ProductItem extends StatelessWidget {
     handlePressedFavoriteIcon(String productId, BuildContext context) {
       ProductsController.toggleFavoriteState(product.id, context).then((newFavoriteState) {
         print(newFavoriteState);
-      }).catchError((error, stackTrace) {
+      }).onError<FailedToToggleAsFavorite>((error, stackTrace) {
         presentWarningFailToggleFavorites(context);
       }).whenComplete(() {
         // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
