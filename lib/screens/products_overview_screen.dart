@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/external/exceptions/products_related_exceptions.dart';
+import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 import 'package:shop_app_flutter_course/providers/products.dart';
@@ -37,16 +37,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
       final productsProvider = Provider.of<Products>(context);
 
-      try {
-        productsProvider.fetchAllProductsAndUpdateList();
-      } on NoProductsToFetch {
-        print('here'); // doesn't get to this point
+      productsProvider.fetchAllProductsAndUpdateList().then((_) {
+        print('success');
+      }).onError<NoProductsToFetch>((error, stackTrace) {
+        print('here $error');
         presentInfoNoProducts();
-      } finally {
+      }).whenComplete(() {
         setState(() => _isLoading = false);
-      }
-
-      _isTheFirstTime = false;
+        _isTheFirstTime = false;
+      });
     }
   }
 
@@ -55,7 +54,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Something went wrong'),
-        content: const Text('An error occurred when trying to add a product'),
+        content: const Text('No products available to fetch'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),

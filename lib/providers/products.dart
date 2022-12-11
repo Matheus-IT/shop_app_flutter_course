@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter_course/external/exceptions/http_exceptions.dart';
-import 'package:shop_app_flutter_course/external/exceptions/products_related_exceptions.dart';
+import 'package:shop_app_flutter_course/exceptions/http_exceptions.dart';
+import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
 import 'package:shop_app_flutter_course/external/firebase_operations/request_delete_product_firebase.dart';
@@ -17,8 +17,8 @@ class Products with ChangeNotifier {
   Future<List<Product>> fetchAllProductsAndUpdateList() async {
     try {
       final List<Product> loadedProducts = [];
-
       final response = await requestAllProductsFromFirebase();
+
       response.forEach((key, prodData) {
         loadedProducts.add(Product(
           id: key,
@@ -29,12 +29,11 @@ class Products with ChangeNotifier {
           imageUrl: prodData['imageUrl'],
         ));
       });
-
       _updateItemsList(loadedProducts);
       notifyListeners();
 
       return loadedProducts;
-    } on NoProductsToFetch {
+    } on NoProductsToFetch catch (_) {
       rethrow;
     }
   }
@@ -95,7 +94,7 @@ class Products with ChangeNotifier {
       final response = await requestDeleteProductFromFirebase(id);
 
       if (response.statusCode >= 400) {
-        throw BadRequest('Bad Request');
+        throw BadRequest();
       }
 
       _items.removeAt(productIndex);
