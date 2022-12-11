@@ -33,20 +33,23 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     super.didChangeDependencies();
 
     if (_isTheFirstTime) {
-      setState(() => _isLoading = true);
-
-      final productsProvider = Provider.of<Products>(context);
-
-      productsProvider.fetchAllProductsAndUpdateList().then((_) {
-        print('success');
-      }).onError<NoProductsToFetch>((error, stackTrace) {
-        print('here $error');
-        presentInfoNoProducts();
-      }).whenComplete(() {
-        setState(() => _isLoading = false);
-        _isTheFirstTime = false;
-      });
+      performInitializationOfScreenDependencies();
     }
+  }
+
+  void performInitializationOfScreenDependencies() {
+    setState(() => _isLoading = true);
+
+    final productsProvider = Provider.of<Products>(context);
+
+    productsProvider.fetchAllProductsFromRemoteDatasource().then((fetchedProducts) {
+      productsProvider.updateItemsList(fetchedProducts);
+    }).onError<NoProductsToFetch>((error, stackTrace) {
+      presentInfoNoProducts();
+    }).whenComplete(() {
+      setState(() => _isLoading = false);
+      _isTheFirstTime = false;
+    });
   }
 
   void presentInfoNoProducts() {

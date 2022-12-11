@@ -9,7 +9,7 @@ class ProductsManagementScreen extends StatelessWidget {
   const ProductsManagementScreen({super.key});
 
   Future<void> _refreshProducts(BuildContext context) async {
-    await Provider.of<Products>(context, listen: false).fetchAllProductsAndUpdateList();
+    await Provider.of<Products>(context, listen: false).fetchAllProductsFromRemoteDatasource();
   }
 
   @override

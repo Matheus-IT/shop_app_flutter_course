@@ -14,7 +14,7 @@ class Products with ChangeNotifier {
     return [..._items];
   }
 
-  Future<List<Product>> fetchAllProductsAndUpdateList() async {
+  Future<List<Product>> fetchAllProductsFromRemoteDatasource() async {
     try {
       final List<Product> loadedProducts = [];
       final response = await requestAllProductsFromFirebase();
@@ -29,8 +29,6 @@ class Products with ChangeNotifier {
           imageUrl: prodData['imageUrl'],
         ));
       });
-      _updateItemsList(loadedProducts);
-      notifyListeners();
 
       return loadedProducts;
     } on NoProductsToFetch catch (_) {
@@ -38,9 +36,10 @@ class Products with ChangeNotifier {
     }
   }
 
-  void _updateItemsList(List<Product> prods) {
+  void updateItemsList(List<Product> prods) {
     _items.clear();
     _items.addAll(prods);
+    notifyListeners();
   }
 
   List<Product> get favoriteItems {
