@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/app_routes.dart';
+import 'package:shop_app_flutter_course/controllers/products_controller.dart';
 import 'package:shop_app_flutter_course/providers/product.dart';
 import 'package:shop_app_flutter_course/providers/cart.dart';
+import 'package:shop_app_flutter_course/widgets/warningPresenters.dart/present_warning_fail_toggle_favorite.dart';
 
 class ProductItem extends StatelessWidget {
+  const ProductItem({super.key});
+
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+
+    handlePressedFavoriteIcon(String productId, BuildContext context) {
+      ProductsController.toggleFavoriteState(product.id, context).then((newFavoriteState) {
+        print(newFavoriteState);
+      }).catchError((error, stackTrace) {
+        presentWarningFailToggleFavorites(context);
+      }).whenComplete(() {
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        product.notifyListeners();
+      });
+    }
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -17,11 +32,9 @@ class ProductItem extends StatelessWidget {
           backgroundColor: Colors.black87,
           leading: Consumer<Product>(
             builder: (ctx, product, _) => IconButton(
-              icon: (product.isFavorite)
-                  ? const Icon(Icons.favorite)
-                  : const Icon(Icons.favorite_border),
+              icon: (product.isFavorite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
               color: Theme.of(context).accentColor,
-              onPressed: () => product.toggleFavoriteStatus(),
+              onPressed: () => handlePressedFavoriteIcon(product.id, context),
             ),
           ),
           trailing: IconButton(
