@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/controllers/orders_controller.dart';
 import 'package:shop_app_flutter_course/providers/orders.dart';
 
 import '../providers/cart.dart' show Cart;
@@ -41,11 +42,21 @@ class CartScreen extends StatelessWidget {
                     const Spacer(),
                     TextButton(
                       onPressed: () {
-                        Provider.of<Orders>(context, listen: false).addOrder(
-                          cart.items.values.toList(), // cart products
-                          cart.totalAmount,
-                        );
-                        cart.clear();
+                        OrdersController.handleNewOrder(
+                          context,
+                          cartItemsList: cart.items.values.toList(),
+                          totalAmount: cart.totalAmount,
+                          clearCart: cart.clear,
+                        ).then((_) {
+                          print('handleNewOrder finished!');
+                        });
+
+                        // .onError<FailedToToggleAsFavorite>((error, stackTrace) {
+                        //   presentWarningFailToggleFavorites(context);
+                        // }).whenComplete(() {
+                        //   // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+                        //   product.notifyListeners();
+                        // });
                       },
                       child: Text(
                         'Order now',
