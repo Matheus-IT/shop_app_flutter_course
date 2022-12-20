@@ -16,7 +16,7 @@ class ProductItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
 
     handlePressedFavoriteIcon(String productId, BuildContext context) {
-      ProductsController.toggleFavoriteState(product.id, context).then((newFavoriteState) {
+      ProductsController.handleToggleFavoriteState(product.id, context).then((newFavoriteState) {
         print(newFavoriteState);
       }).onError<FailedToToggleAsFavorite>((error, stackTrace) {
         presentWarningFailToggleFavorites(context);

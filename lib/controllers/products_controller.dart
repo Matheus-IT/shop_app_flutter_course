@@ -4,7 +4,7 @@ import '../providers/products.dart';
 import '../usecases/toggle_product_favorite_state.dart';
 
 class ProductsController {
-  static Future<bool> toggleFavoriteState(String productId, BuildContext context) async {
+  static Future<bool> handleToggleFavoriteState(String productId, BuildContext context) async {
     final productsProvider = Provider.of<Products>(context, listen: false);
     final product = productsProvider.findById(productId);
 
