@@ -5,7 +5,7 @@ import 'package:shop_app_flutter_course/providers/cart.dart';
 import 'package:shop_app_flutter_course/providers/orders.dart';
 
 class OrdersController {
-  static handleNewOrder(
+  static Future<void> handleNewOrder(
     BuildContext context, {
     required List<CartItem> cartItemsList,
     required double totalAmount,
