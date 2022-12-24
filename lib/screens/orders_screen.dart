@@ -46,12 +46,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Your orders')),
       drawer: const AppDrawer(),
-      body: ListView.builder(
-        itemCount: orders.orderItems.length,
-        itemBuilder: (ctx, index) => OrderItem(
-          order: orders.orderItems[index],
-        ),
-      ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: orders.orderItems.length,
+              itemBuilder: (ctx, index) => OrderItem(
+                order: orders.orderItems[index],
+              ),
+            ),
     );
   }
 }
