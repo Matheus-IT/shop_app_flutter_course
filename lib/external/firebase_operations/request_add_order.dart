@@ -3,13 +3,13 @@ import 'package:shop_app_flutter_course/external/firebase_operations/get_firebas
 import 'package:http/http.dart' as http;
 import 'package:shop_app_flutter_course/providers/cart.dart';
 
-Future<DateTime> requestAddOrderFirebase(List<CartItem> cartItemsList, double totalAmount) async {
+Future<AddOrderResponse> requestAddOrderFirebase(List<CartItem> cartItemsList, double totalAmount) async {
   final firebaseUrl = getFirebaseUrl();
   final url = Uri.parse('$firebaseUrl/orders.json');
 
   final timestamp = DateTime.now();
 
-  await http.post(
+  final response = await http.post(
     url,
     body: json.encode({
       'amount': totalAmount,
@@ -27,5 +27,14 @@ Future<DateTime> requestAddOrderFirebase(List<CartItem> cartItemsList, double to
     }),
   );
 
-  return timestamp;
+  final identifier = json.decode(response.body)['name'];
+
+  return AddOrderResponse(timestamp, identifier);
+}
+
+class AddOrderResponse {
+  final DateTime timestamp;
+  final String identifier;
+
+  AddOrderResponse(this.timestamp, this.identifier);
 }

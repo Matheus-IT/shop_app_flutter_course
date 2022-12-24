@@ -13,9 +13,14 @@ class OrdersController {
   }) async {
     final ordersProvider = Provider.of<Orders>(context, listen: false);
 
-    final whenAdded = await requestAddOrderFirebase(cartItemsList, totalAmount);
+    final response = await requestAddOrderFirebase(cartItemsList, totalAmount);
 
-    ordersProvider.addOrder(cartItemsList, totalAmount, whenAdded);
+    ordersProvider.addOrder(
+      cartItemsList,
+      totalAmount,
+      response.timestamp,
+      response.identifier,
+    );
 
     clearCart();
   }
