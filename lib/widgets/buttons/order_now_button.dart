@@ -44,12 +44,14 @@ class _OrderNowButtonState extends State<OrderNowButton> {
                 print(error);
               });
             },
-      child: Text(
-        'Order now',
-        style: TextStyle(
-          color: _shouldBlockButton() ? Theme.of(context).disabledColor : Theme.of(context).primaryColor,
-        ),
-      ),
+      child: isLoading
+          ? const CircularProgressIndicator()
+          : Text(
+              'Order now',
+              style: TextStyle(
+                color: _shouldBlockButton() ? Theme.of(context).disabledColor : Theme.of(context).primaryColor,
+              ),
+            ),
     );
   }
 }
