@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> requestAllOrdersFromFirebase() async {
   final firebaseUrl = getFirebaseUrl();
-  final url = Uri.parse('$firebaseUrl/products.json');
+  final url = Uri.parse('$firebaseUrl/orders.json');
 
   final response = await http.get(url);
 

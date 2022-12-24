@@ -39,4 +39,10 @@ class Orders with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void updateItemsList(List<OrderItem> orders) {
+    _orders.clear();
+    _orders.addAll(orders);
+    notifyListeners();
+  }
 }
