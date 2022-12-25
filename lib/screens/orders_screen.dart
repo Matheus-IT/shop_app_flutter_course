@@ -5,7 +5,7 @@ import '../controllers/orders_controller.dart';
 import '../exceptions/orders_exceptions.dart';
 import '../widgets/loading_presenters/loading_feedback_indicator.dart';
 import '../widgets/notice_presenters/no_orders_notice.dart';
-import '../providers/orders.dart' show OrderProvider;
+import '../providers/orders_provider.dart' show OrderProvider;
 import '../widgets/app_drawer.dart';
 import '../widgets/order_item.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/app_routes.dart';
-import 'package:shop_app_flutter_course/providers/products.dart';
+import 'package:shop_app_flutter_course/providers/products_provider.dart';
 import 'package:shop_app_flutter_course/widgets/app_drawer.dart';
 import 'package:shop_app_flutter_course/widgets/product_management_item.dart';
 

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../providers/orders.dart';
+import 'providers/orders_provider.dart';
 import '../screens/edit_product_screen.dart';
 import '../screens/orders_screen.dart';
 import '../screens/products_management_screen.dart';
 import './app_routes.dart';
-import './providers/cart.dart';
-import './providers/products.dart';
+import 'providers/cart_provider.dart';
+import 'providers/products_provider.dart';
 import './screens/cart_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/products_overview_screen.dart';

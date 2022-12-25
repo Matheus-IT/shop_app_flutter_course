@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '../providers/products.dart';
+import '../providers/products_provider.dart';
 import '../usecases/toggle_product_favorite_state.dart';
 
 class ProductsController {
