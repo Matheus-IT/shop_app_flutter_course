@@ -34,7 +34,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (productId == null) {
       return;
     }
-    final productsProvider = Provider.of<Products>(context, listen: false);
+    final productsProvider = Provider.of<ProductProvider>(context, listen: false);
     final loadedProduct = productsProvider.findById(productId!);
 
     _titleController.text = loadedProduct.title;
@@ -113,7 +113,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (!isValid) {
       return;
     }
-    final productsProvider = Provider.of<Products>(context, listen: false);
+    final productsProvider = Provider.of<ProductProvider>(context, listen: false);
 
     setState(() => isLoading = true);
 

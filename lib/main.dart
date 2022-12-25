@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/providers/orders.dart';
-import 'package:shop_app_flutter_course/screens/edit_product_screen.dart';
-import 'package:shop_app_flutter_course/screens/orders_screen.dart';
-import 'package:shop_app_flutter_course/screens/products_management_screen.dart';
-
-import 'app_routes.dart';
-import 'providers/cart.dart';
-import 'providers/products.dart';
-import 'screens/cart_screen.dart';
-import 'screens/product_detail_screen.dart';
-import 'screens/products_overview_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../providers/orders.dart';
+import '../screens/edit_product_screen.dart';
+import '../screens/orders_screen.dart';
+import '../screens/products_management_screen.dart';
+import './app_routes.dart';
+import './providers/cart.dart';
+import './providers/products.dart';
+import './screens/cart_screen.dart';
+import './screens/product_detail_screen.dart';
+import './screens/products_overview_screen.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -25,14 +25,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Products>(
-          create: (_) => Products(),
+        ChangeNotifierProvider<ProductProvider>(
+          create: (_) => ProductProvider(),
         ),
-        ChangeNotifierProvider<Cart>(
-          create: (_) => Cart(),
+        ChangeNotifierProvider<CartProvider>(
+          create: (_) => CartProvider(),
         ),
-        ChangeNotifierProvider<Orders>(
-          create: (_) => Orders(),
+        ChangeNotifierProvider<OrderProvider>(
+          create: (_) => OrderProvider(),
         ),
       ],
       child: MaterialApp(

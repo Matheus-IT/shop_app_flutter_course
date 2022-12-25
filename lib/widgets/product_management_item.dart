@@ -37,8 +37,7 @@ class ProductManagementItem extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Provider.of<Products>(context, listen: false)
-                      .deleteProductIfExists(id);
+                  Provider.of<ProductProvider>(context, listen: false).deleteProductIfExists(id);
                 },
                 icon: const Icon(Icons.delete),
                 color: Theme.of(context).errorColor,

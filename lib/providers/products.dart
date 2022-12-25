@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter_course/exceptions/http_exceptions.dart';
-import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
-import 'package:shop_app_flutter_course/external/firebase_operations/request_add_product_firebase.dart';
-import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
-import 'package:shop_app_flutter_course/external/firebase_operations/request_delete_product_firebase.dart';
-import 'package:shop_app_flutter_course/external/firebase_operations/request_update_product_firebase.dart';
-import 'package:shop_app_flutter_course/providers/product.dart';
+import '../entities/product.dart';
+import '../exceptions/http_exceptions.dart';
+import '../exceptions/products_exceptions.dart';
+import '../external/firebase_operations/request_add_product_firebase.dart';
+import '../external/firebase_operations/request_all_products_firebase.dart';
+import '../external/firebase_operations/request_delete_product_firebase.dart';
+import '../external/firebase_operations/request_update_product_firebase.dart';
 
-class Products with ChangeNotifier {
+class ProductProvider with ChangeNotifier {
   final List<Product> _items = [];
 
   List<Product> get items {

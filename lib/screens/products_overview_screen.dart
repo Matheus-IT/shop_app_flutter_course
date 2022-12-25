@@ -41,7 +41,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   void performInitializationOfScreenDependencies() {
     setState(() => _isLoading = true);
 
-    final productsProvider = Provider.of<Products>(context);
+    final productsProvider = Provider.of<ProductProvider>(context);
 
     productsProvider.fetchAllProductsFromRemoteDatasource().then((fetchedProducts) {
       productsProvider.updateItemsList(fetchedProducts);

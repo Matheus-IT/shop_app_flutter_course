@@ -13,7 +13,7 @@ class OrdersController {
     required double totalAmount,
     required Function() clearCart,
   }) async {
-    final ordersProvider = Provider.of<Orders>(context, listen: false);
+    final ordersProvider = Provider.of<OrderProvider>(context, listen: false);
 
     final response = await requestAddOrderFirebase(cartItemsList, totalAmount);
 
@@ -28,7 +28,7 @@ class OrdersController {
   }
 
   static Future<void> handleFetchAllOrders(BuildContext context) async {
-    final ordersProvider = Provider.of<Orders>(context);
+    final ordersProvider = Provider.of<OrderProvider>(context);
 
     final orders = await fetchAllOrdersFromRemoteDatasource();
 
