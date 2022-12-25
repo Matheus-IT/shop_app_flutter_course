@@ -1,4 +1,4 @@
-import '../../entities/order.dart';
+import '../../domain/entities/order.dart';
 
 Order useOrderIdentificationFieldFromFirebase({required Order newOrder, required Map responseBody}) {
   // getting the identification, in this case 'name', generated from firebase

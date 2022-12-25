@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../entities/product.dart';
+import '../domain/entities/product.dart';
 import '../exceptions/http_exceptions.dart';
 import '../exceptions/products_exceptions.dart';
 import '../external/firebase_operations/request_add_product_firebase.dart';

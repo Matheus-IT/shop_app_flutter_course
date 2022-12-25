@@ -1,4 +1,4 @@
-import '../entities/product.dart';
+import '../domain/entities/product.dart';
 import '../exceptions/products_exceptions.dart';
 import '../external/firebase_operations/request_patch_product_firebase.dart';
 

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../app_routes.dart';
 import '../controllers/products_controller.dart';
-import '../entities/product.dart';
+import '../domain/entities/product.dart';
 import '../exceptions/products_exceptions.dart';
 import '../providers/cart_provider.dart';
 import '../widgets/warningPresenters.dart/present_warning_fail_toggle_favorite.dart';

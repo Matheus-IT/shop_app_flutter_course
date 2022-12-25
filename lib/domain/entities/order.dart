@@ -1,4 +1,4 @@
-import 'package:shop_app_flutter_course/entities/cart.dart';
+import 'package:shop_app_flutter_course/domain/entities/cart.dart';
 
 class Order {
   final String id;

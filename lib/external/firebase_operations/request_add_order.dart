@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../../entities/cart.dart';
+import '../../domain/entities/cart.dart';
 import './get_firebase_url.dart';
 
 Future<AddOrderResponse> requestAddOrderFirebase(List<Cart> cartItemsList, double totalAmount) async {
