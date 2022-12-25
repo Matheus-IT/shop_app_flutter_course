@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter_course/controllers/orders_controller.dart';
-import 'package:shop_app_flutter_course/providers/cart.dart';
+import '../../controllers/orders_controller.dart';
+import '../../providers/cart_provider.dart';
 
 class OrderNowButton extends StatefulWidget {
-  final Cart cart;
+  final CartProvider cart;
 
   const OrderNowButton({
     Key? key,

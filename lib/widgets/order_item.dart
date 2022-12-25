@@ -1,12 +1,10 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import '../providers/orders.dart' as ord;
+import '../entities/order.dart';
 
 class OrderItem extends StatefulWidget {
-  final ord.OrderItem order;
+  final Order order;
   const OrderItem({
     Key? key,
     required this.order,
@@ -31,9 +29,7 @@ class _OrderItemState extends State<OrderItem> {
               DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
             ),
             trailing: IconButton(
-              icon: (_expanded)
-                  ? const Icon(Icons.expand_less)
-                  : const Icon(Icons.expand_more),
+              icon: (_expanded) ? const Icon(Icons.expand_less) : const Icon(Icons.expand_more),
               onPressed: () => setState(() => _expanded = !_expanded),
             ),
           ),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/app_routes.dart';
-import 'package:shop_app_flutter_course/controllers/products_controller.dart';
-import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
-import 'package:shop_app_flutter_course/providers/product.dart';
-import 'package:shop_app_flutter_course/providers/cart.dart';
-import 'package:shop_app_flutter_course/widgets/warningPresenters.dart/present_warning_fail_toggle_favorite.dart';
+
+import '../app_routes.dart';
+import '../controllers/products_controller.dart';
+import '../entities/product.dart';
+import '../exceptions/products_exceptions.dart';
+import '../providers/cart_provider.dart';
+import '../widgets/warningPresenters.dart/present_warning_fail_toggle_favorite.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -13,7 +14,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
-    final cart = Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<CartProvider>(context, listen: false);
 
     handlePressedFavoriteIcon(String productId, BuildContext context) {
       ProductsController.handleToggleFavoriteState(product.id, context).then((newFavoriteState) {
