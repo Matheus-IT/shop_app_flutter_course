@@ -1,10 +1,12 @@
-class OrderItem {
+import 'package:shop_app_flutter_course/entities/cart.dart';
+
+class Order {
   final String id;
   final double amount;
-  final List<CartItem> products;
+  final List<Cart> products;
   final DateTime dateTime;
 
-  OrderItem({
+  Order({
     required this.id,
     required this.amount,
     required this.products,
