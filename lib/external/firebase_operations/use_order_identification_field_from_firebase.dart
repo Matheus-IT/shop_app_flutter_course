@@ -1,8 +1,8 @@
-import 'package:shop_app_flutter_course/providers/orders.dart';
+import '../../entities/order.dart';
 
-OrderItem useOrderIdentificationFieldFromFirebase({required OrderItem newOrder, required Map responseBody}) {
+Order useOrderIdentificationFieldFromFirebase({required Order newOrder, required Map responseBody}) {
   // getting the identification, in this case 'name', generated from firebase
-  return OrderItem(
+  return Order(
     id: responseBody['name'],
     amount: newOrder.amount,
     dateTime: newOrder.dateTime,

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop_app_flutter_course/providers/product.dart';
+import '../../entities/product.dart';
 
 Future<void> requestUpdateProductFromFirebase(Product newProduct) async {
   final firebaseUrl = dotenv.env['FIREBASE_URL'];

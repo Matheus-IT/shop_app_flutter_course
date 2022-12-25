@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:shop_app_flutter_course/external/firebase_operations/get_firebase_url.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop_app_flutter_course/providers/cart.dart';
+import '../../entities/cart.dart';
+import './get_firebase_url.dart';
 
-Future<AddOrderResponse> requestAddOrderFirebase(List<CartItem> cartItemsList, double totalAmount) async {
+Future<AddOrderResponse> requestAddOrderFirebase(List<Cart> cartItemsList, double totalAmount) async {
   final firebaseUrl = getFirebaseUrl();
   final url = Uri.parse('$firebaseUrl/orders.json');
 
