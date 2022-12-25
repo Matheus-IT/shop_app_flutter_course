@@ -1,13 +1,13 @@
-import 'package:shop_app_flutter_course/external/firebase_operations/request_all_orders_firebase.dart';
-import 'package:shop_app_flutter_course/providers/orders.dart';
+import '../entities/order.dart';
+import '../external/firebase_operations/request_all_orders_firebase.dart';
 
-Future<List<OrderItem>> fetchAllOrdersFromRemoteDatasource() async {
-  final List<OrderItem> loadedOrders = [];
+Future<List<Order>> fetchAllOrdersFromRemoteDatasource() async {
+  final List<Order> loadedOrders = [];
 
   final response = await requestAllOrdersFromFirebase();
 
   response.forEach((key, orderData) {
-    loadedOrders.add(OrderItem(
+    loadedOrders.add(Order(
       id: orderData.name,
       amount: orderData.amount,
       dateTime: orderData.dateTime,

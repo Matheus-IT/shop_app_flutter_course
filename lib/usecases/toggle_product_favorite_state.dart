@@ -1,6 +1,6 @@
-import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
-import 'package:shop_app_flutter_course/external/firebase_operations/request_patch_product_firebase.dart';
-import 'package:shop_app_flutter_course/providers/product.dart';
+import '../entities/product.dart';
+import '../exceptions/products_exceptions.dart';
+import '../external/firebase_operations/request_patch_product_firebase.dart';
 
 Future<bool> toggleProductFavoriteState(Product product) async {
   bool favoriteStateBackup = product.isFavorite;
