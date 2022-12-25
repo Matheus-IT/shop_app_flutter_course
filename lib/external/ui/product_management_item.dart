@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/app_routes.dart';
-import 'package:shop_app_flutter_course/providers/products_provider.dart';
+import 'package:shop_app_flutter_course/external/navigation/app_routes.dart';
+import 'package:shop_app_flutter_course/external/providers/products_provider.dart';
 
 class ProductManagementItem extends StatelessWidget {
   final String id;

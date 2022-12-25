@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/app_routes.dart';
-import 'package:shop_app_flutter_course/providers/products_provider.dart';
-import 'package:shop_app_flutter_course/widgets/app_drawer.dart';
-import 'package:shop_app_flutter_course/widgets/product_management_item.dart';
+
+import '../../navigation/app_routes.dart';
+import '../../providers/products_provider.dart';
+import '../app_drawer.dart';
+import '../product_management_item.dart';
 
 class ProductsManagementScreen extends StatelessWidget {
   const ProductsManagementScreen({super.key});

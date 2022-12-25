@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../exceptions/products_exceptions.dart';
-import '../providers/products_provider.dart';
-import '../widgets/warningPresenters.dart/present_warning_no_products.dart';
-import '../app_routes.dart';
-import '../providers/cart_provider.dart';
-import '../widgets/app_drawer.dart';
-import '../widgets/badge.dart';
-import '../widgets/products_grid.dart';
+import '../../../exceptions/products_exceptions.dart';
+import '../../providers/products_provider.dart';
+import '../../navigation/app_routes.dart';
+import '../../providers/cart_provider.dart';
+import '../warning_presenters/present_warning_no_products.dart';
+import '../app_drawer.dart';
+import '../badge.dart';
+import '../products_grid.dart';
 
 enum OptionsFilter {
   favorites,

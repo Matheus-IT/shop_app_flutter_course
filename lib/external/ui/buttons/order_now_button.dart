@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../controllers/orders_controller.dart';
+import '../../../../adapters/controllers/orders_controller.dart';
 import '../../providers/cart_provider.dart';
 
 class OrderNowButton extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '../providers/products_provider.dart';
-import '../usecases/toggle_product_favorite_state.dart';
+import '../../external/providers/products_provider.dart';
+import '../../usecases/toggle_product_favorite_state.dart';
 
 class ProductsController {
   static Future<bool> handleToggleFavoriteState(String productId, BuildContext context) async {

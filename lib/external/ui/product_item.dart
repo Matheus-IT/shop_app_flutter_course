@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../app_routes.dart';
-import '../controllers/products_controller.dart';
-import '../domain/entities/product.dart';
-import '../exceptions/products_exceptions.dart';
+import '../navigation/app_routes.dart';
+import '../../adapters/controllers/products_controller.dart';
+import '../../domain/entities/product.dart';
+import '../../exceptions/products_exceptions.dart';
 import '../providers/cart_provider.dart';
-import '../widgets/warningPresenters.dart/present_warning_fail_toggle_favorite.dart';
+import 'warning_presenters/present_warning_fail_toggle_favorite.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});

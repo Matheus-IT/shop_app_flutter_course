@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/orders_controller.dart';
-import '../exceptions/orders_exceptions.dart';
-import '../widgets/loading_presenters/loading_feedback_indicator.dart';
-import '../widgets/notice_presenters/no_orders_notice.dart';
-import '../providers/orders_provider.dart' show OrderProvider;
-import '../widgets/app_drawer.dart';
-import '../widgets/order_item.dart';
+import '../../../adapters/controllers/orders_controller.dart';
+import '../../../exceptions/orders_exceptions.dart';
+import '../../providers/orders_provider.dart';
+import '../loading_presenters/loading_feedback_indicator.dart';
+import '../notice_presenters/no_orders_notice.dart';
+import '../app_drawer.dart';
+import '../order_item.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({Key? key}) : super(key: key);
