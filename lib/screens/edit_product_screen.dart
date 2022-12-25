@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/providers/product.dart';
-import 'package:shop_app_flutter_course/providers/products.dart';
+import '../entities/product.dart';
+import '../providers/products_provider.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({super.key});
@@ -170,92 +170,93 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Edit product')),
       body: SafeArea(
-          child: isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Form(
-                    key: _formKey,
-                    child: ListView(
-                      children: [
-                        TextFormField(
-                          decoration: const InputDecoration(labelText: 'Title'),
-                          textInputAction: TextInputAction.next,
-                          controller: _titleController,
-                          validator: titleValidator,
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(labelText: 'Price'),
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,
-                          controller: _priceController,
-                          validator: priceValidator,
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(labelText: 'Description'),
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 3,
-                          controller: _descriptionController,
-                          validator: descriptionValidator,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              margin: const EdgeInsets.only(top: 8, right: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Title'),
+                        textInputAction: TextInputAction.next,
+                        controller: _titleController,
+                        validator: titleValidator,
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Price'),
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.number,
+                        controller: _priceController,
+                        validator: priceValidator,
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Description'),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 3,
+                        controller: _descriptionController,
+                        validator: descriptionValidator,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 100,
+                            margin: const EdgeInsets.only(top: 8, right: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.grey,
                               ),
-                              child: Container(
-                                child: _imageUrlController.text.isEmpty
-                                    ? const Text('Enter image URL')
-                                    : FittedBox(
-                                        child: Image.network(
-                                          _imageUrlController.text,
-                                          fit: BoxFit.cover,
-                                        ),
+                            ),
+                            child: Container(
+                              child: _imageUrlController.text.isEmpty
+                                  ? const Text('Enter image URL')
+                                  : FittedBox(
+                                      child: Image.network(
+                                        _imageUrlController.text,
+                                        fit: BoxFit.cover,
                                       ),
-                              ),
+                                    ),
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                decoration: const InputDecoration(labelText: 'Image URL'),
-                                keyboardType: TextInputType.url,
-                                textInputAction: TextInputAction.done,
-                                controller: _imageUrlController,
-                                onEditingComplete: () {
-                                  if (imageUrlValidator(_imageUrlController.text) != null) {
-                                    return;
-                                  }
-                                  setState(() {});
-                                },
-                                onFieldSubmitted: (_) => _handleSubmitForm(),
-                                validator: imageUrlValidator,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: IconButton(
-                            iconSize: 40,
-                            icon: const Icon(Icons.save),
-                            color: Theme.of(context).primaryColor,
-                            onPressed: () => _handleSubmitForm(),
                           ),
+                          Expanded(
+                            child: TextFormField(
+                              decoration: const InputDecoration(labelText: 'Image URL'),
+                              keyboardType: TextInputType.url,
+                              textInputAction: TextInputAction.done,
+                              controller: _imageUrlController,
+                              onEditingComplete: () {
+                                if (imageUrlValidator(_imageUrlController.text) != null) {
+                                  return;
+                                }
+                                setState(() {});
+                              },
+                              onFieldSubmitted: (_) => _handleSubmitForm(),
+                              validator: imageUrlValidator,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          iconSize: 40,
+                          icon: const Icon(Icons.save),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () => _handleSubmitForm(),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                )),
+                ),
+              ),
+      ),
     );
   }
 }

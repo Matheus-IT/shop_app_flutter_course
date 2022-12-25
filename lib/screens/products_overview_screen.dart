@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/exceptions/products_exceptions.dart';
-import 'package:shop_app_flutter_course/external/firebase_operations/request_all_products_firebase.dart';
-import 'package:shop_app_flutter_course/providers/product.dart';
-import 'package:shop_app_flutter_course/providers/products.dart';
-import 'package:shop_app_flutter_course/widgets/warningPresenters.dart/present_warning_no_products.dart';
 
+import '../exceptions/products_exceptions.dart';
+import '../providers/products_provider.dart';
+import '../widgets/warningPresenters.dart/present_warning_no_products.dart';
 import '../app_routes.dart';
-import '../providers/cart.dart';
+import '../providers/cart_provider.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/badge.dart';
 import '../widgets/products_grid.dart';
@@ -81,7 +79,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ],
           ),
-          Consumer<Cart>(
+          Consumer<CartProvider>(
             builder: (_, cart, ch) => Badge(
               value: cart.itemCount.toString(),
               child: ch!,
