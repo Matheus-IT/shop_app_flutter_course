@@ -7,6 +7,7 @@ import './external/providers/orders_provider.dart';
 import './external/providers/cart_provider.dart';
 import './external/providers/products_provider.dart';
 import './external/ui/screens/products_overview_screen.dart';
+import './external/ui/theming/theming.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -33,14 +34,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Shop App',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.purple,
-          ),
-          accentColor: Colors.deepOrange,
-          primaryColor: Colors.purple,
-          fontFamily: 'Lato',
-        ),
+        theme: Theming.getAppTheme(),
         home: const ProductsOverviewScreen(),
         routes: NavigationMapper.getMappedRoutes(),
       ),
