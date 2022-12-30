@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
 
 enum AuthMode { signup, login }
 
@@ -32,6 +34,12 @@ class AuthCardState extends State<AuthCard> {
       // Log user in
     } else {
       // Sign user up
+      Provider.of<AuthProvider>(context, listen: false)
+          .signup(
+            _authData['email']!,
+            _authData['password']!,
+          )
+          .then((value) => print('just signed up!'));
     }
     setState(() {
       _isLoading = false;
