@@ -1,6 +1,6 @@
 import '../domain/entities/product.dart';
 import '../exceptions/products_exceptions.dart';
-import '../external/firebase_operations/request_patch_product_firebase.dart';
+import '../external/rest_operations/request_patch_product.dart';
 
 Future<bool> toggleProductFavoriteState(Product product) async {
   bool favoriteStateBackup = product.isFavorite;

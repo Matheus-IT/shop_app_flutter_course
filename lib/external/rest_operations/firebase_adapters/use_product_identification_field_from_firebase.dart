@@ -1,4 +1,4 @@
-import '../../domain/entities/product.dart';
+import '../../../domain/entities/product.dart';
 
 Product useProductIdentificationFieldFromFirebase({required Product newProduct, required Map responseBody}) {
   // getting the identification, in this case 'name', generated from firebase

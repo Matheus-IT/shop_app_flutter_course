@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/entities/cart.dart';
-import '../../external/firebase_operations/request_add_order.dart';
+import '../../external/rest_operations/request_add_order.dart';
 import '../../external/providers/orders_provider.dart';
 import '../../usecases/fetch_all_orders_from_remote_datasource.dart';
 

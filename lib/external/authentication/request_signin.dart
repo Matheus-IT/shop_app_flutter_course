@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import './auth_url_mapper.dart';
+import '../authentication/auth_url_mapper.dart';
 
 Future<void> requestSignIn(String email, String password) async {
   final url = AuthUrlMapper().getSignInUrl();
@@ -12,5 +12,13 @@ Future<void> requestSignIn(String email, String password) async {
       'returnSecureToken': true,
     }),
   );
+
   print(json.decode(response.body));
+
+  // Response Interface:
+  // kind: identitytoolkit#VerifyPasswordResponse,
+  // localId: hP7yPLVrZ2OvRcFyXGDbCsD5ZU42,
+  // email: test@mail.com,
+  // displayName: ,
+  // idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3NTNi,
 }

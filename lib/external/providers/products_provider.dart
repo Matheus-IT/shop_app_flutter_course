@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/product.dart';
 import '../../exceptions/http_exceptions.dart';
 import '../../exceptions/products_exceptions.dart';
-import '../firebase_operations/request_add_product_firebase.dart';
-import '../firebase_operations/request_all_products_firebase.dart';
-import '../firebase_operations/request_delete_product_firebase.dart';
-import '../firebase_operations/request_update_product_firebase.dart';
+import '../rest_operations/request_add_product.dart';
+import '../rest_operations/request_all_products.dart';
+import '../rest_operations/request_delete_product.dart';
+import '../rest_operations/request_update_product.dart';
 
 class ProductProvider with ChangeNotifier {
   final List<Product> _items = [];

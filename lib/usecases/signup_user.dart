@@ -1,4 +1,4 @@
-import '../external/firebase_operations/request_signup.dart';
+import '../external/authentication/request_signup.dart';
 
 class SignUpRequest {
   final String email;

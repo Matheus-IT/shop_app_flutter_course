@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
-import './use_product_identification_field_from_firebase.dart';
+import './firebase_adapters/use_product_identification_field_from_firebase.dart';
 import '../../domain/entities/product.dart';
 
 Future<void> requestAddProductFirebase(Product newProduct) async {

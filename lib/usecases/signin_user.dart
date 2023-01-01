@@ -1,4 +1,4 @@
-import '../external/firebase_operations/request_signin.dart';
+import '../external/authentication/request_signin.dart';
 
 class SignInRequest {
   final String email;

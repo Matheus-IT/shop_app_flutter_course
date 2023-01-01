@@ -1,5 +1,5 @@
 import '../domain/entities/order.dart';
-import '../external/firebase_operations/request_all_orders_firebase.dart';
+import '../external/rest_operations/request_all_orders.dart';
 
 Future<List<Order>> fetchAllOrdersFromRemoteDatasource() async {
   final List<Order> loadedOrders = [];
