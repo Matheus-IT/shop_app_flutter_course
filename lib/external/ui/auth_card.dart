@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter_course/adapters/controllers/auth_controller.dart';
+import 'package:shop_app_flutter_course/external/ui/forms/form_handlers/signin_form_handler.dart';
+import 'package:shop_app_flutter_course/external/ui/forms/form_handlers/signup_form_handler.dart';
+import 'package:shop_app_flutter_course/external/ui/forms/forms_payloads/auth_form_payload.dart';
+import 'package:shop_app_flutter_course/external/ui/forms/validators/validate_confirmation_password.dart';
+import 'package:shop_app_flutter_course/external/ui/forms/validators/validate_email.dart';
+import 'package:shop_app_flutter_course/external/ui/forms/validators/validate_password.dart';
 
 enum AuthMode { signup, login }
 
@@ -21,41 +26,27 @@ class AuthCardState extends State<AuthCard> {
   final _passwordController = TextEditingController();
 
   void _submit() {
-    if (!_formKey.currentState!.validate()) {
-      // Invalid!
-      return;
-    }
-    _formKey.currentState!.save();
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
+
+    late Future<void> formHandlerFuture;
+    final payload = AuthFormPayload(_authData['email']!, _authData['password']!);
+
     if (_authMode == AuthMode.login) {
-      AuthController.handleUserSignIn(
-        context,
-        email: _authData['email']!,
-        password: _authData['password']!,
-      ).then((_) => print('user just signed in!!!'));
+      formHandlerFuture = SignInFormHandler(_formKey, context).handle(payload);
     } else {
-      AuthController.handleUserSignUp(
-        context,
-        email: _authData['email']!,
-        password: _authData['password']!,
-      ).then((_) => print('user just signed up!!!'));
+      formHandlerFuture = SignUpFormHandler(_formKey, context).handle(payload);
     }
-    setState(() {
-      _isLoading = false;
+
+    formHandlerFuture.then((_) {
+      setState(() => _isLoading = false);
     });
   }
 
   void _switchAuthMode() {
     if (_authMode == AuthMode.login) {
-      setState(() {
-        _authMode = AuthMode.signup;
-      });
+      setState(() => _authMode = AuthMode.signup);
     } else {
-      setState(() {
-        _authMode = AuthMode.login;
-      });
+      setState(() => _authMode = AuthMode.login);
     }
   }
 
@@ -80,12 +71,7 @@ class AuthCardState extends State<AuthCard> {
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'E-Mail'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value != null && (value.isEmpty || !value.contains('@'))) {
-                      return 'Invalid email!';
-                    }
-                    return null;
-                  },
+                  validator: validateEmail,
                   onSaved: (value) {
                     if (value != null) {
                       _authData['email'] = value;
@@ -96,20 +82,11 @@ class AuthCardState extends State<AuthCard> {
                   decoration: const InputDecoration(labelText: 'Password'),
                   obscureText: true,
                   controller: _passwordController,
-                  validator: (value) {
-                    if (value == null) {
-                      return 'value is null';
-                    }
-                    if (value.isEmpty || value.length < 5) {
-                      return 'Password is too short!';
-                    }
-                    return null;
-                  },
+                  validator: validatePassword,
                   onSaved: (value) {
-                    if (value == null) {
-                      return;
+                    if (value != null) {
+                      _authData['password'] = value;
                     }
-                    _authData['password'] = value;
                   },
                 ),
                 if (_authMode == AuthMode.signup)
@@ -118,17 +95,10 @@ class AuthCardState extends State<AuthCard> {
                     decoration: const InputDecoration(labelText: 'Confirm Password'),
                     obscureText: true,
                     validator: _authMode == AuthMode.signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
-                            }
-                            return null;
-                          }
+                        ? (value) => validateConfirmationPassword(value, _passwordController.text)
                         : null,
                   ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 if (_isLoading)
                   const CircularProgressIndicator()
                 else
