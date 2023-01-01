@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
+import 'package:shop_app_flutter_course/external/ui/screens/auth_screen.dart';
 
 import './external/navigation/navigation_mapper.dart';
 import './external/providers/orders_provider.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Shop App',
         theme: Theming.getAppTheme(),
-        home: const ProductsOverviewScreen(),
+        home: const AuthScreen(),
         routes: NavigationMapper.getMappedRoutes(),
       ),
     );

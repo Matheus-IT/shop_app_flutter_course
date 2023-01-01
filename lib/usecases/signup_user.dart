@@ -6,7 +6,6 @@ class SignUpRequest {
   const SignUpRequest(this.email, this.password);
 }
 
-Future<void> signupUser(SignUpRequest request) async {
-  // final url = Uri.parse('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=<YOUR_API_KEY>');
+Future<void> signUpUser(SignUpRequest request) async {
   final response = await requestSignUp(request.email, request.password);
 }

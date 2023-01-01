@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shop_app_flutter_course/adapters/controllers/auth_controller.dart';
-import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
 
 enum AuthMode { signup, login }
 
@@ -32,7 +30,11 @@ class AuthCardState extends State<AuthCard> {
       _isLoading = true;
     });
     if (_authMode == AuthMode.login) {
-      // Log user in
+      AuthController.handleUserSignIn(
+        context,
+        email: _authData['email']!,
+        password: _authData['password']!,
+      ).then((_) => print('user just signed in!!!'));
     } else {
       AuthController.handleUserSignUp(
         context,

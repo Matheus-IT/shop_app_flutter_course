@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter_course/external/ui/auth_card.dart';
 
@@ -41,12 +39,10 @@ class AuthScreen extends StatelessWidget {
                   Flexible(
                     child: Container(
                       margin: const EdgeInsets.only(bottom: 20.0),
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)..translate(-10.0),
-                      // ..translate(-10.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 70.0),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.deepOrange.shade900,
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.purple,
                         boxShadow: const [
                           BoxShadow(
                             blurRadius: 8,
@@ -68,7 +64,7 @@ class AuthScreen extends StatelessWidget {
                   ),
                   Flexible(
                     flex: deviceSize.width > 600 ? 2 : 1,
-                    child: AuthCard(),
+                    child: const AuthCard(),
                   ),
                 ],
               ),
