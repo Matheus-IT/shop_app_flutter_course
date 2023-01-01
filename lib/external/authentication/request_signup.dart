@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../exceptions/auth_exceptions.dart';
 import '../authentication/auth_url_mapper.dart';
 
 Future<void> requestSignUp(String email, String password) async {
@@ -13,7 +14,11 @@ Future<void> requestSignUp(String email, String password) async {
     }),
   );
 
-  print(json.decode(response.body));
+  final responseBody = json.decode(response.body);
+
+  if (responseBody['error'] != null && responseBody['error']['message'] == 'EMAIL_EXISTS') {
+    throw ExistingEmail();
+  }
 
   // Response interface:
   // kind: identitytoolkit#SignupNewUserResponse,

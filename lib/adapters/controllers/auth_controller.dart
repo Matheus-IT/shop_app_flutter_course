@@ -11,7 +11,7 @@ class AuthController {
     required String password,
   }) async {
     final authProvider = _getProviderWithoutListening(context);
-    signUpUser(SignUpRequest(email, password));
+    await signUpUser(SignUpRequest(email, password));
   }
 
   static Future<void> handleUserSignIn(
@@ -20,7 +20,7 @@ class AuthController {
     required String password,
   }) async {
     final authProvider = _getProviderWithoutListening(context);
-    signInUser(SignInRequest(email, password));
+    await signInUser(SignInRequest(email, password));
   }
 
   static AuthProvider _getProviderWithoutListening(BuildContext context) {

@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:shop_app_flutter_course/exceptions/auth_exceptions.dart';
+import 'package:shop_app_flutter_course/external/ui/warning_presenters/present_warning_dialog.dart';
 import '../forms_payloads/auth_form_payload.dart';
 import '../../../../adapters/controllers/auth_controller.dart';
 
@@ -16,10 +18,19 @@ class SignInFormHandler {
 
     _formKey.currentState!.save();
 
-    AuthController.handleUserSignIn(
-      context,
-      email: payload.email,
-      password: payload.password,
-    ).then((_) => print('user just signed in!!!'));
+    try {
+      await AuthController.handleUserSignIn(
+        context,
+        email: payload.email,
+        password: payload.password,
+      );
+
+      print('user just signed in!!!');
+    } on NonExistingEmail catch (_) {
+      presentWarningDialog(
+        context: context,
+        content: 'The provided email does not exist',
+      );
+    }
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/widgets.dart';
+
 import '../forms_payloads/auth_form_payload.dart';
+import '../../warning_presenters/present_warning_dialog.dart';
+import '../../../../exceptions/auth_exceptions.dart';
 import '../../../../adapters/controllers/auth_controller.dart';
 
 class SignUpFormHandler {
@@ -16,10 +19,18 @@ class SignUpFormHandler {
 
     _formKey.currentState!.save();
 
-    AuthController.handleUserSignUp(
-      context,
-      email: payload.email,
-      password: payload.password,
-    ).then((_) => print('user just signed up!!!'));
+    try {
+      await AuthController.handleUserSignUp(
+        context,
+        email: payload.email,
+        password: payload.password,
+      );
+      print('user just signed up!!!');
+    } on ExistingEmail catch (_) {
+      presentWarningDialog(
+        context: context,
+        content: 'The email already exists',
+      );
+    }
   }
 }
