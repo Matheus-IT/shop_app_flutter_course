@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shop_app_flutter_course/exceptions/auth_exceptions.dart';
 import '../authentication/auth_url_mapper.dart';
 
 Future<void> requestSignIn(String email, String password) async {
@@ -13,7 +14,11 @@ Future<void> requestSignIn(String email, String password) async {
     }),
   );
 
-  print(json.decode(response.body));
+  final responseBody = json.decode(response.body);
+
+  if (_requestedEmailDoesNotExist(responseBody['error'], responseBody['error']?['message'])) {
+    throw NonExistingEmail();
+  }
 
   // Response Interface:
   // kind: identitytoolkit#VerifyPasswordResponse,
@@ -21,4 +26,8 @@ Future<void> requestSignIn(String email, String password) async {
   // email: test@mail.com,
   // displayName: ,
   // idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3NTNi,
+}
+
+bool _requestedEmailDoesNotExist(Map? responseError, String responseMsg) {
+  return responseError != null && responseMsg == 'EMAIL_NOT_FOUND';
 }
