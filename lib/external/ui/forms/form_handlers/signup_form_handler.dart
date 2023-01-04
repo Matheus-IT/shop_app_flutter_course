@@ -25,7 +25,6 @@ class SignUpFormHandler {
         email: payload.email,
         password: payload.password,
       );
-      print('user just signed up!!!');
     } on ExistingEmail catch (_) {
       presentWarningDialog(
         context: context,

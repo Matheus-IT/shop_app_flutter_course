@@ -24,8 +24,6 @@ class SignInFormHandler {
         email: payload.email,
         password: payload.password,
       );
-
-      print('user just signed in!!!');
     } on NonExistingEmail catch (_) {
       presentWarningDialog(
         context: context,
@@ -36,6 +34,11 @@ class SignInFormHandler {
         context: context,
         title: 'Wrong password',
         content: 'The provided password is wrong',
+      );
+    } on InvalidEmail catch (_) {
+      presentWarningDialog(
+        context: context,
+        content: 'The provided email is invalid',
       );
     }
   }
