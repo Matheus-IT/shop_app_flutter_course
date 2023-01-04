@@ -31,6 +31,12 @@ class SignInFormHandler {
         context: context,
         content: 'The provided email does not exist',
       );
+    } on WrongPassword catch (_) {
+      presentWarningDialog(
+        context: context,
+        title: 'Wrong password',
+        content: 'The provided password is wrong',
+      );
     }
   }
 }

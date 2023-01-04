@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
-import 'package:shop_app_flutter_course/external/ui/screens/auth_screen.dart';
 
+import './external/providers/auth_provider.dart';
+import './external/ui/screens/auth_screen.dart';
 import './external/navigation/navigation_mapper.dart';
 import './external/providers/orders_provider.dart';
 import './external/providers/cart_provider.dart';
 import './external/providers/products_provider.dart';
-import './external/ui/screens/products_overview_screen.dart';
 import './external/ui/theming/theming.dart';
 
 void main() async {

@@ -20,6 +20,10 @@ Future<void> requestSignIn(String email, String password) async {
     throw NonExistingEmail();
   }
 
+  if (_passwordIsWrong(responseBody['error'], responseBody['error']?['message'])) {
+    throw WrongPassword();
+  }
+
   // Response Interface:
   // kind: identitytoolkit#VerifyPasswordResponse,
   // localId: hP7yPLVrZ2OvRcFyXGDbCsD5ZU42,
@@ -30,4 +34,8 @@ Future<void> requestSignIn(String email, String password) async {
 
 bool _requestedEmailDoesNotExist(Map? responseError, String responseMsg) {
   return responseError != null && responseMsg == 'EMAIL_NOT_FOUND';
+}
+
+bool _passwordIsWrong(Map? responseError, String responseMsg) {
+  return responseError != null && responseMsg == 'INVALID_PASSWORD';
 }
