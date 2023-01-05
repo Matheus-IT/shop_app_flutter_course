@@ -66,6 +66,7 @@ class AuthCardState extends State<AuthCard> {
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: Column(
               children: <Widget>[
                 TextFormField(
@@ -110,6 +111,7 @@ class AuthCardState extends State<AuthCard> {
                     // padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                     // color: Theme.of(context).primaryColor,
                     // textColor: Theme.of(context).primaryTextTheme.tbutton.color,
+                    style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 35)),
                     child: Text(_authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
                   ),
                 TextButton(
