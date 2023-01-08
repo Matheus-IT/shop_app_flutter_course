@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:shop_app_flutter_course/external/authentication/auth_response.dart';
 
 import '../../exceptions/auth_exceptions.dart';
 import './error_response.dart';
 import './auth_url_mapper.dart';
 
-Future<void> requestSignIn(String email, String password) async {
+Future<AuthResponse> requestSignIn(String email, String password) async {
   final url = AuthUrlMapper().getSignInUrl();
   final response = await http.post(
     url,
@@ -18,14 +20,12 @@ Future<void> requestSignIn(String email, String password) async {
 
   final responseBody = json.decode(response.body);
 
-  if (responseBody['error'] == null) {
-    // Response Interface:
-    // kind: identitytoolkit#VerifyPasswordResponse,
-    // localId: hP7yPLVrZ2OvRcFyXGDbCsD5ZU42,
-    // email: test@mail.com,
-    // displayName: ,
-    // idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3NTNi,
-    return;
+  if (_responseWasSuccessful(responseBody)) {
+    return AuthResponse(
+      token: responseBody['idToken'],
+      expiryDate: DateTime.now().add(Duration(seconds: int.parse(responseBody['expiresIn']))),
+      userId: responseBody['localId'],
+    );
   }
 
   final errorResponse = ErrorResponse(
@@ -44,6 +44,11 @@ Future<void> requestSignIn(String email, String password) async {
   if (_emailIsInvalid(errorResponse)) {
     throw InvalidEmail();
   }
+  throw const HttpException('Some generic http exception');
+}
+
+bool _responseWasSuccessful(Map responseBody) {
+  return responseBody['error'] == null;
 }
 
 bool _requestedEmailDoesNotExist(ErrorResponse error) {

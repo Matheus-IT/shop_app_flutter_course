@@ -1,3 +1,4 @@
+import '../external/authentication/auth_response.dart';
 import '../external/authentication/request_signin.dart';
 
 class SignInRequest {
@@ -6,6 +7,7 @@ class SignInRequest {
   const SignInRequest(this.email, this.password);
 }
 
-Future<void> signInUser(SignInRequest request) async {
+Future<AuthResponse> signInUser(SignInRequest request) async {
   final response = await requestSignIn(request.email, request.password);
+  return response;
 }

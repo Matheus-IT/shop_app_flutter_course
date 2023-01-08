@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shop_app_flutter_course/external/navigation/home_screen_controller.dart';
 
 import './external/providers/auth_provider.dart';
-import './external/ui/screens/auth_screen.dart';
 import './external/navigation/navigation_mapper.dart';
 import './external/providers/orders_provider.dart';
 import './external/providers/cart_provider.dart';
@@ -35,12 +35,14 @@ class MyApp extends StatelessWidget {
           create: (_) => OrderProvider(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Shop App',
-        theme: Theming.getAppTheme(),
-        home: const AuthScreen(),
-        routes: NavigationMapper.getMappedRoutes(),
+      child: Consumer<AuthProvider>(
+        builder: (ctx, authProvider, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Shop App',
+          theme: Theming.getAppTheme(),
+          home: HomeScreenController.getHomeScreen(authProvider.isAuthenticated),
+          routes: NavigationMapper.getMappedRoutes(),
+        ),
       ),
     );
   }

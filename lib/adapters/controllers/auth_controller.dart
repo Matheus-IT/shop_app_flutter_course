@@ -20,7 +20,8 @@ class AuthController {
     required String password,
   }) async {
     final authProvider = _getProviderWithoutListening(context);
-    await signInUser(SignInRequest(email, password));
+    final signInResponse = await signInUser(SignInRequest(email, password));
+    authProvider.receive(signInResponse);
   }
 
   static AuthProvider _getProviderWithoutListening(BuildContext context) {
