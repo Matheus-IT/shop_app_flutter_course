@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/adapters/controllers/products_controller.dart';
 
 import '../../../exceptions/products_exceptions.dart';
 import '../../providers/products_provider.dart';
@@ -39,13 +40,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   void performInitializationOfScreenDependencies() {
     setState(() => _isLoading = true);
 
-    final productsProvider = Provider.of<ProductProvider>(context);
-
-    productsProvider.fetchAllProductsFromRemoteDatasource().then((fetchedProducts) {
-      productsProvider.updateItemsList(fetchedProducts);
-    }).onError<NoProductsToFetch>((error, stackTrace) {
-      presentWarningNoProducts(context);
-    }).whenComplete(() {
+    ProductsController.handleFetchAllFromRemoteDataSource(context).whenComplete(() {
       setState(() => _isLoading = false);
       _isTheFirstTime = false;
     });

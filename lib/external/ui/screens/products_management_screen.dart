@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/adapters/controllers/products_controller.dart';
 
 import '../../navigation/app_routes.dart';
 import '../../providers/products_provider.dart';
@@ -10,7 +11,7 @@ class ProductsManagementScreen extends StatelessWidget {
   const ProductsManagementScreen({super.key});
 
   Future<void> _refreshProducts(BuildContext context) async {
-    await Provider.of<ProductProvider>(context, listen: false).fetchAllProductsFromRemoteDatasource();
+    ProductsController.handleFetchAllFromRemoteDataSource(context);
   }
 
   @override

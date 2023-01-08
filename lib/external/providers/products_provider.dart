@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/product.dart';
 import '../../exceptions/http_exceptions.dart';
-import '../../exceptions/products_exceptions.dart';
 import '../rest_operations/request_add_product.dart';
-import '../rest_operations/request_all_products.dart';
 import '../rest_operations/request_delete_product.dart';
 import '../rest_operations/request_update_product.dart';
 
@@ -12,28 +10,6 @@ class ProductProvider with ChangeNotifier {
 
   List<Product> get items {
     return [..._items];
-  }
-
-  Future<List<Product>> fetchAllProductsFromRemoteDatasource() async {
-    try {
-      final List<Product> loadedProducts = [];
-      final response = await requestAllProductsFromFirebase();
-
-      response.forEach((key, prodData) {
-        loadedProducts.add(Product(
-          id: key,
-          title: prodData['title'],
-          description: prodData['description'],
-          price: prodData['price'],
-          isFavorite: prodData['isFavorite'],
-          imageUrl: prodData['imageUrl'],
-        ));
-      });
-
-      return loadedProducts;
-    } on NoProductsToFetch catch (_) {
-      rethrow;
-    }
   }
 
   void updateItemsList(List<Product> prods) {
