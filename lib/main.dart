@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shop_app_flutter_course/external/navigation/home_screen_controller.dart';
 
+import '../external/navigation/home_screen_controller.dart';
 import './external/providers/auth_provider.dart';
 import './external/navigation/navigation_mapper.dart';
 import './external/providers/orders_provider.dart';
