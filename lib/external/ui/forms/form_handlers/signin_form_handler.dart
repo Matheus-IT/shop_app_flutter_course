@@ -16,8 +16,6 @@ class SignInFormHandler {
       return;
     }
 
-    _formKey.currentState!.save();
-
     try {
       await AuthController.handleUserSignIn(
         context,

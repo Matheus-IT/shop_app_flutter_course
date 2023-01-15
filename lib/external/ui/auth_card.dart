@@ -29,6 +29,7 @@ class AuthCardState extends State<AuthCard> {
     setState(() => _isLoading = true);
 
     late Future<void> formHandlerFuture;
+    _formKey.currentState!.save();
     final payload = AuthFormPayload(_authData['email']!, _authData['password']!);
 
     if (_authMode == AuthMode.login) {
@@ -37,7 +38,7 @@ class AuthCardState extends State<AuthCard> {
       formHandlerFuture = SignUpFormHandler(_formKey, context).handle(payload);
     }
 
-    formHandlerFuture.then((_) {
+    formHandlerFuture.whenComplete(() {
       setState(() => _isLoading = false);
     });
   }
@@ -74,6 +75,7 @@ class AuthCardState extends State<AuthCard> {
                   keyboardType: TextInputType.emailAddress,
                   validator: validateEmail,
                   onSaved: (value) {
+                    print('email onSaved $value');
                     if (value != null) {
                       _authData['email'] = value;
                     }
@@ -85,6 +87,7 @@ class AuthCardState extends State<AuthCard> {
                   controller: _passwordController,
                   validator: validatePassword,
                   onSaved: (value) {
+                    print('password onSaved $value');
                     if (value != null) {
                       _authData['password'] = value;
                     }
@@ -105,20 +108,11 @@ class AuthCardState extends State<AuthCard> {
                 else
                   ElevatedButton(
                     onPressed: _submit,
-                    // shape: RoundedRectangleBorder(
-                    //   borderRadius: BorderRadius.circular(30),
-                    // ),
-                    // padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                    // color: Theme.of(context).primaryColor,
-                    // textColor: Theme.of(context).primaryTextTheme.tbutton.color,
                     style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 35)),
                     child: Text(_authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
                   ),
                 TextButton(
                   onPressed: _switchAuthMode,
-                  // padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-                  // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  // textColor: Theme.of(context).primaryColor,
                   child: Text('${_authMode == AuthMode.login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
                 ),
               ],
