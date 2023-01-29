@@ -11,8 +11,10 @@ class ProductsController {
   static Future<bool> handleToggleFavoriteState(String productId, BuildContext context) async {
     final productsProvider = Provider.of<ProductProvider>(context, listen: false);
     final product = productsProvider.findById(productId);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final userId = authProvider.userId;
 
-    final newFavoriteState = await toggleProductFavoriteState(product);
+    final newFavoriteState = await toggleProductFavoriteState(product, userId);
     return newFavoriteState;
   }
 

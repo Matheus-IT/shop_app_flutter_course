@@ -6,6 +6,8 @@ class AuthProvider extends ChangeNotifier {
   DateTime? _expireDate;
   String? _userId;
 
+  String? get userId => _userId;
+
   bool get isAuthenticated {
     return token != null;
   }
