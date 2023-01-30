@@ -4,11 +4,15 @@ import '../domain/entities/product.dart';
 import '../exceptions/products_exceptions.dart';
 
 Future<bool> toggleProductFavoriteState(Product product, String? userId) async {
+  if (userId == null) {
+    throw FailedToToggleAsFavorite();
+  }
+
   bool favoriteStateBackup = product.isFavorite;
   product.toggleFavoriteStatus();
   bool newFavoriteState = product.isFavorite;
 
-  final response = await requestPatchIsFavoriteStatus(product.id, userId!, {'isFavorite': newFavoriteState});
+  final response = await requestPatchIsFavoriteStatus(product.id, userId, {'isFavorite': newFavoriteState});
 
   if (response.statusCode >= 400 && response.statusCode < 500) {
     product.isFavorite = favoriteStateBackup;
