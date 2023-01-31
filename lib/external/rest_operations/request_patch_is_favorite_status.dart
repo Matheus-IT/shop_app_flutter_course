@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import './urls/get_firebase_url.dart';
 
-Future<http.Response> requestPatchIsFavoriteStatus(
+Future<http.Response> requestPutIsFavoriteStatus(
   String productId,
   String userId,
   String authToken,

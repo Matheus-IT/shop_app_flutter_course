@@ -8,14 +8,15 @@ Future<bool> toggleProductFavoriteState(Product product, String? userId, String 
     throw FailedToToggleAsFavorite();
   }
 
-  bool favoriteStateBackup = product.isFavorite;
-  product.toggleFavoriteStatus();
-  bool newFavoriteState = product.isFavorite;
+  final backupFavoriteState = product.isFavorite;
 
-  final response = await requestPatchIsFavoriteStatus(product.id, userId, authToken, {'isFavorite': newFavoriteState});
+  product.toggleFavoriteStatus();
+  final newFavoriteState = product.isFavorite;
+
+  final response = await requestPutIsFavoriteStatus(product.id, userId, authToken, {'isFavorite': newFavoriteState});
 
   if (response.statusCode >= 400 && response.statusCode < 500) {
-    product.isFavorite = favoriteStateBackup;
+    product.isFavorite = backupFavoriteState;
     throw FailedToToggleAsFavorite();
   }
 

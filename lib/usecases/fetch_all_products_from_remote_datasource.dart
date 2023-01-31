@@ -1,9 +1,16 @@
+import 'dart:convert';
+
+import 'package:shop_app_flutter_course/external/rest_operations/request_get_all_is_favorite_status.dart';
+
 import '../domain/entities/product.dart';
 import '../external/rest_operations/request_all_products.dart';
 
-Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken) async {
+Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken, String userId) async {
   final List<Product> loadedProducts = [];
   final response = await requestAllProductsFromFirebase(authToken);
+
+  final favoriteStateResponse = await requestGetAllIsFavoriteStatus(userId, authToken!);
+  final favoriteStateData = json.decode(favoriteStateResponse.body);
 
   response.forEach((key, prodData) {
     loadedProducts.add(Product(
@@ -11,8 +18,8 @@ Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken) as
       title: prodData['title'],
       description: prodData['description'],
       price: prodData['price'],
-      isFavorite: prodData['isFavorite'],
       imageUrl: prodData['imageUrl'],
+      isFavorite: favoriteStateData == null ? false : favoriteStateData[key]['isFavorite'] ?? false,
     ));
   });
 

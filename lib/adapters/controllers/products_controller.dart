@@ -24,7 +24,7 @@ class ProductsController {
       final productsProvider = Provider.of<ProductProvider>(context);
       final authProvider = Provider.of<AuthProvider>(context);
 
-      final fetchedProducts = await fetchAllProductsFromRemoteDatasource(authProvider.token);
+      final fetchedProducts = await fetchAllProductsFromRemoteDatasource(authProvider.token, authProvider.userId!);
 
       productsProvider.updateItemsList(fetchedProducts);
     } on NoProductsToFetch catch (_) {
