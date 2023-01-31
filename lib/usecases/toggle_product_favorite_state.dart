@@ -3,7 +3,7 @@ import 'package:shop_app_flutter_course/external/rest_operations/request_patch_i
 import '../domain/entities/product.dart';
 import '../exceptions/products_exceptions.dart';
 
-Future<bool> toggleProductFavoriteState(Product product, String? userId) async {
+Future<bool> toggleProductFavoriteState(Product product, String? userId, String authToken) async {
   if (userId == null) {
     throw FailedToToggleAsFavorite();
   }
@@ -12,7 +12,7 @@ Future<bool> toggleProductFavoriteState(Product product, String? userId) async {
   product.toggleFavoriteStatus();
   bool newFavoriteState = product.isFavorite;
 
-  final response = await requestPatchIsFavoriteStatus(product.id, userId, {'isFavorite': newFavoriteState});
+  final response = await requestPatchIsFavoriteStatus(product.id, userId, authToken, {'isFavorite': newFavoriteState});
 
   if (response.statusCode >= 400 && response.statusCode < 500) {
     product.isFavorite = favoriteStateBackup;

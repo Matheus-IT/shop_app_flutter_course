@@ -13,8 +13,9 @@ class ProductsController {
     final product = productsProvider.findById(productId);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final userId = authProvider.userId;
+    final authToken = authProvider.token;
 
-    final newFavoriteState = await toggleProductFavoriteState(product, userId);
+    final newFavoriteState = await toggleProductFavoriteState(product, userId, authToken!);
     return newFavoriteState;
   }
 
