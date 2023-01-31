@@ -11,7 +11,7 @@ Future<http.Response> requestPatchIsFavoriteStatus(
 ) async {
   final firebaseUrl = getFirebaseUrl();
   final url = Uri.parse('$firebaseUrl/userFavorites/$userId/$productId.json?auth=$authToken');
-  return http.patch(
+  return http.put(
     url,
     body: json.encode(attrs),
   );
