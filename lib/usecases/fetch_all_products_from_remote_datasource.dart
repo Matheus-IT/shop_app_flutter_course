@@ -10,7 +10,7 @@ Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken, St
   final response = await requestAllProductsFromFirebase(authToken);
 
   final favoriteStateResponse = await requestGetAllIsFavoriteStatus(userId, authToken!);
-  final Map<String, Map<String, bool>> favoriteStateData = json.decode(favoriteStateResponse.body);
+  final Map<String, dynamic>? favoriteStateData = json.decode(favoriteStateResponse.body);
 
   response.forEach((key, prodData) {
     loadedProducts.add(Product(
@@ -19,7 +19,7 @@ Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken, St
       description: prodData['description'],
       price: prodData['price'],
       imageUrl: prodData['imageUrl'],
-      isFavorite: favoriteStateData[key] == null ? false : favoriteStateData[key]!['isFavorite']!,
+      isFavorite: favoriteStateData == null ? false : favoriteStateData[key]['isFavorite'] as bool,
     ));
   });
 
