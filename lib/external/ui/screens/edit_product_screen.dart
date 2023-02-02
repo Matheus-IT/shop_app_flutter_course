@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
 import '../../../domain/entities/product.dart';
 import '../../providers/products_provider.dart';
 
@@ -114,6 +115,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     final productsProvider = Provider.of<ProductProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final userId = authProvider.userId as String;
+    final authToken = authProvider.token as String;
 
     setState(() => isLoading = true);
 
@@ -128,7 +132,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       );
 
       try {
-        await productsProvider.addProduct(newProduct);
+        await productsProvider.addProduct(newProduct, userId, authToken);
         debugPrint('Product added!');
       } catch (error) {
         _showWarningDialogErrorAddingProduct();

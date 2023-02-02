@@ -4,9 +4,9 @@ import 'dart:convert';
 import './firebase_adapters/use_product_identification_field_from_firebase.dart';
 import '../../domain/entities/product.dart';
 
-Future<void> requestAddProductFirebase(Product newProduct) async {
+Future<void> requestAddProductFirebase(Product newProduct, String userId, String authToken) async {
   final firebaseUrl = dotenv.env['FIREBASE_URL'];
-  final url = Uri.parse('$firebaseUrl/products.json');
+  final url = Uri.parse('$firebaseUrl/products.json?auth=$authToken');
 
   final response = await http.post(
     url,
@@ -15,7 +15,7 @@ Future<void> requestAddProductFirebase(Product newProduct) async {
       'description': newProduct.description,
       'imageUrl': newProduct.imageUrl,
       'price': newProduct.price,
-      'isFavorite': newProduct.isFavorite,
+      'creatorId': userId,
     }),
   );
 

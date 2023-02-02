@@ -22,9 +22,9 @@ class ProductProvider with ChangeNotifier {
     return _items.where((product) => product.isFavorite).toList();
   }
 
-  Future<void> addProduct(Product newProduct) async {
+  Future<void> addProduct(Product newProduct, String userId, String authToken) async {
     try {
-      await requestAddProductFirebase(newProduct);
+      await requestAddProductFirebase(newProduct, userId, authToken);
       _items.add(newProduct);
       notifyListeners();
     } catch (e) {
