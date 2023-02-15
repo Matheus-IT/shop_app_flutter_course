@@ -7,7 +7,7 @@ import '../external/rest_operations/request_all_products.dart';
 
 Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken, String userId) async {
   final List<Product> loadedProducts = [];
-  final response = await requestAllProductsFromFirebase(authToken);
+  final response = await requestAllProductsFromFirebase(authToken, userId);
 
   final favoriteStateResponse = await requestGetAllIsFavoriteStatus(userId, authToken!);
   final Map<String, dynamic>? favoriteStateData = json.decode(favoriteStateResponse.body);
