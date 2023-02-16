@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
 
 import '../../domain/entities/cart.dart';
 import '../../external/rest_operations/request_add_order.dart';
@@ -14,8 +15,19 @@ class OrdersController {
     required Function() clearCart,
   }) async {
     final ordersProvider = Provider.of<OrderProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final response = await requestAddOrderFirebase(cartItemsList, totalAmount);
+    if (authProvider.token == null) {
+      print('Error: no auth token!');
+      return;
+    }
+
+    final response = await requestAddOrderFirebase(
+      cartItemsList,
+      totalAmount,
+      authProvider.userId as String,
+      authProvider.token as String,
+    );
 
     ordersProvider.addOrder(
       cartItemsList,
@@ -29,8 +41,17 @@ class OrdersController {
 
   static Future<void> handleFetchAllOrders(BuildContext context) async {
     final ordersProvider = Provider.of<OrderProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final orders = await fetchAllOrdersFromRemoteDatasource();
+    if (authProvider.token == null) {
+      print('Error: no auth token!');
+      return;
+    }
+
+    final orders = await fetchAllOrdersFromRemoteDatasource(
+      authProvider.userId as String,
+      authProvider.token as String,
+    );
 
     ordersProvider.updateItemsList(orders);
   }

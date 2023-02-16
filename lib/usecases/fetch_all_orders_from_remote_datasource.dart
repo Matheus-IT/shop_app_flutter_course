@@ -1,10 +1,10 @@
 import '../domain/entities/order.dart';
 import '../external/rest_operations/request_all_orders.dart';
 
-Future<List<Order>> fetchAllOrdersFromRemoteDatasource() async {
+Future<List<Order>> fetchAllOrdersFromRemoteDatasource(String userId, String authToken) async {
   final List<Order> loadedOrders = [];
 
-  final response = await requestAllOrdersFromFirebase();
+  final response = await requestAllOrdersFromFirebase(userId, authToken);
 
   response.forEach((key, orderData) {
     loadedOrders.add(Order(

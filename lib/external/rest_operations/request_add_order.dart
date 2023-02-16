@@ -3,9 +3,14 @@ import 'package:http/http.dart' as http;
 import '../../domain/entities/cart.dart';
 import './urls/get_firebase_url.dart';
 
-Future<AddOrderResponse> requestAddOrderFirebase(List<Cart> cartItemsList, double totalAmount) async {
+Future<AddOrderResponse> requestAddOrderFirebase(
+  List<Cart> cartItemsList,
+  double totalAmount,
+  String userId,
+  String authToken,
+) async {
   final firebaseUrl = getFirebaseUrl();
-  final url = Uri.parse('$firebaseUrl/orders.json');
+  final url = Uri.parse('$firebaseUrl/orders/$userId.json?auth=$authToken');
 
   final timestamp = DateTime.now();
 
