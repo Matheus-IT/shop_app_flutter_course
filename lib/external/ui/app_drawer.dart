@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app_flutter_course/adapters/controllers/auth_controller.dart';
 
 import '../navigation/app_routes.dart';
 
@@ -35,6 +36,15 @@ class AppDrawer extends StatelessWidget {
           title: const Text('Manage Products'),
           onTap: () {
             Navigator.of(context).pushReplacementNamed(AppRoutes.managementScreen);
+          },
+        ),
+        const Divider(),
+        ListTile(
+          leading: const Icon(Icons.exit_to_app),
+          title: const Text('Logout'),
+          onTap: () {
+            AuthController.handleLogout(context);
+            Navigator.of(context).pushReplacementNamed(AppRoutes.auth);
           },
         ),
       ]),

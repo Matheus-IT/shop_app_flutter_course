@@ -47,3 +47,15 @@ class InvalidEmail extends Equatable implements Exception {
   @override
   List<Object?> get props => [message];
 }
+
+class AuthTokenExpired extends Equatable implements Exception {
+  final String message = 'The provided email is incorrect!';
+
+  @override
+  String toString() {
+    return message;
+  }
+
+  @override
+  List<Object?> get props => [message];
+}

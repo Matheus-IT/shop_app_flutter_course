@@ -5,11 +5,11 @@ import 'package:shop_app_flutter_course/external/rest_operations/request_get_all
 import '../domain/entities/product.dart';
 import '../external/rest_operations/request_all_products.dart';
 
-Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken, String userId) async {
+Future<List<Product>> fetchAllProductsFromRemoteDatasource(String authToken, String userId) async {
   final List<Product> loadedProducts = [];
   final response = await requestAllProductsFromFirebase(authToken, userId);
 
-  final favoriteStateResponse = await requestGetAllIsFavoriteStatus(userId, authToken!);
+  final favoriteStateResponse = await requestGetAllIsFavoriteStatus(userId, authToken);
   final Map<String, dynamic>? favoriteStateData = json.decode(favoriteStateResponse.body);
 
   response.forEach((key, prodData) {
@@ -19,7 +19,10 @@ Future<List<Product>> fetchAllProductsFromRemoteDatasource(String? authToken, St
       description: prodData['description'],
       price: prodData['price'],
       imageUrl: prodData['imageUrl'],
-      isFavorite: favoriteStateData == null ? false : favoriteStateData[key]['isFavorite'] as bool,
+      isFavorite:
+          (favoriteStateData == null || favoriteStateData[key] == null || favoriteStateData[key]['isFavorite'] == null)
+              ? false
+              : favoriteStateData[key]['isFavorite'] as bool,
     ));
   });
 

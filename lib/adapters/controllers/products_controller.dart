@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter_course/external/providers/auth_provider.dart';
+import '../../external/ui/warning_presenters/present_warning_auth_expired.dart';
+import '../../exceptions/auth_exceptions.dart';
+import '../../external/providers/auth_provider.dart';
 import '../../exceptions/products_exceptions.dart';
 import '../../external/ui/warning_presenters/present_warning_no_products.dart';
 import '../../usecases/fetch_all_products_from_remote_datasource.dart';
@@ -24,11 +26,17 @@ class ProductsController {
       final productsProvider = Provider.of<ProductProvider>(context);
       final authProvider = Provider.of<AuthProvider>(context);
 
-      final fetchedProducts = await fetchAllProductsFromRemoteDatasource(authProvider.token, authProvider.userId!);
+      if (authProvider.token == null || authProvider.userId == null) {
+        throw AuthTokenExpired();
+      }
+
+      final fetchedProducts = await fetchAllProductsFromRemoteDatasource(authProvider.token!, authProvider.userId!);
 
       productsProvider.updateItemsList(fetchedProducts);
     } on NoProductsToFetch catch (_) {
       presentWarningNoProducts(context);
+    } on AuthTokenExpired catch (_) {
+      presentWarningAuthExpired(context);
     }
   }
 }

@@ -24,6 +24,11 @@ class AuthController {
     authProvider.receive(signInResponse);
   }
 
+  static void handleLogout(BuildContext context) {
+    final authProvider = _getProviderWithoutListening(context);
+    authProvider.clearAuthData();
+  }
+
   static AuthProvider _getProviderWithoutListening(BuildContext context) {
     return Provider.of<AuthProvider>(context, listen: false);
   }

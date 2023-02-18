@@ -19,6 +19,12 @@ class AuthProvider extends ChangeNotifier {
     return null;
   }
 
+  void clearAuthData() {
+    _token = null;
+    _expireDate = null;
+    _userId = null;
+  }
+
   bool _tokenIsStillValid() {
     return _expireDate?.isAfter(DateTime.now()) ?? false;
   }

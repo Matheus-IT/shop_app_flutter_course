@@ -1,3 +1,5 @@
+import 'package:shop_app_flutter_course/external/ui/screens/auth_screen.dart';
+
 import '../ui/screens/cart_screen.dart';
 import '../ui/screens/edit_product_screen.dart';
 import '../ui/screens/orders_screen.dart';
@@ -9,6 +11,7 @@ import './app_routes.dart';
 
 class NavigationMapper {
   static getMappedRoutes() => {
+        AppRoutes.auth: (context) => const AuthScreen(),
         AppRoutes.productsOverview: (context) => const ProductsOverviewScreen(),
         AppRoutes.productDetail: (context) => const ProductDetailScreen(),
         AppRoutes.cart: (context) => const CartScreen(),
