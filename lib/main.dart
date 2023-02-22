@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Shop App',
           theme: Theming.getAppTheme(),
-          home: HomeScreenController.getHomeScreen(authProvider.isAuthenticated),
+          home: HomeScreenController.getHomeScreen(authProvider),
           routes: NavigationMapper.getMappedRoutes(),
         ),
       ),
